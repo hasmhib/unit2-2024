@@ -23,7 +23,7 @@ def produce(n,m,s):
 
     return x,y
 
-y, x = produce(10,3,2)
+y, x = produce(5,3,2)
 plt.plot(x,y)
 plt.plot(x,y,color="r", marker="o")
 plt.title("Graph of the equation $y=x^{-1/2(m/s)^2}$")
@@ -33,6 +33,7 @@ plt.show()
 ```
 
 ## Proof of work
-<img width="max" alt="Screenshot 2023-11-16 at 7 55 26 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/6c8f19c0-1e0c-46bf-a467-4ad60607ef83">
+<img width="max" alt="Screenshot 2023-11-16 at 8 00 51 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/4d605d25-6d1e-4d86-bc6a-ab646e147b58">
+
 
 ## Truth table for
