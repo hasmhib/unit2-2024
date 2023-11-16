@@ -9,4 +9,4 @@
 
 ## Proof of work
 
-## Truth table and circuits
+## Truth table and circuit
