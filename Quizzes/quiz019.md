@@ -8,3 +8,5 @@
 ```
 
 ## Proof of work
+
+## Truth table and circuits
