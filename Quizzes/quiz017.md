@@ -28,3 +28,7 @@ print(case1)
 ## Proof of work
 <img width="max" alt="Screenshot 2023-11-16 at 2 56 38 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/a8b90ddf-9659-45fa-be4a-b5032da8820c">
 
+## Boolean circuit for
+![IMG_0058](https://github.com/hasmhib/unit2-2024/assets/142870448/e862bceb-f065-41ba-93fc-1ba0f06a796f)
+
+
