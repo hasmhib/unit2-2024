@@ -1,4 +1,9 @@
-``.py
+# Quiz 018
+
+
+## Code
+
+```py
 def get_truth():
     print("| A | B | C |")
     for i in range(8):
@@ -7,4 +12,9 @@ def get_truth():
         c=i%2
 
 table = get_truth()
-``
+```
+
+## Proof of work
+
+
+
