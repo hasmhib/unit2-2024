@@ -21,3 +21,7 @@ table = get_truth()
 
 
 ## Truth table and circuit
+![IMG_0060](https://github.com/hasmhib/unit2-2024/assets/142870448/a490f80e-369a-40ef-aca3-1e09eb83c32b)
+![IMG_0061](https://github.com/hasmhib/unit2-2024/assets/142870448/1b9c89c3-f529-4ad9-8b90-10684e6cb0d3)
+
+
