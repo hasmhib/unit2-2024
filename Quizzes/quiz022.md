@@ -29,3 +29,4 @@ plt.show()
 <img width="max" alt="Screenshot 2023-11-16 at 8 01 48 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/4c4dd971-9bcb-4ba0-9d19-1e6f1cd51e77">
 
 ## Circuit for
+![IMG_0064](https://github.com/hasmhib/unit2-2024/assets/142870448/4b5cd2d6-f69b-4667-adef-0737a30d7b7e)
