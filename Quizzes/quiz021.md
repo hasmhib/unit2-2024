@@ -37,3 +37,5 @@ plt.show()
 
 
 ## Truth table for
+![IMG_0063](https://github.com/hasmhib/unit2-2024/assets/142870448/fc54c1c9-94d3-421b-bee9-de3072b5493c)
+
