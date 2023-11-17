@@ -33,3 +33,4 @@ plt.show()
 <img width="max" alt="Screenshot 2023-11-16 at 8 04 04 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/c5c0930e-4b74-4653-bf36-ce59cacbab5d">
 
 ## Convert the following color in hex to rgb
+![IMG_0066](https://github.com/hasmhib/unit2-2024/assets/142870448/0cc52816-d5f0-4c45-aa54-c678f384a6cf)
