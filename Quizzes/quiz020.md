@@ -22,3 +22,5 @@ sample = equation(5,3,2)
 <img width="max" alt="Screenshot 2023-11-16 at 2 56 33 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/0bd37f0d-d7f9-4d90-a196-448eb8097308">
 
 ## Proof
+![IMG_0062](https://github.com/hasmhib/unit2-2024/assets/142870448/46460a73-d305-4584-ad50-9ba12ff64b0e)
+
