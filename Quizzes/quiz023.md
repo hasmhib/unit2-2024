@@ -27,4 +27,5 @@ plt.show()
 <img width="max" alt="Screenshot 2023-11-16 at 2 53 00 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/a227a815-f74a-49fb-9cb6-a69378de74a8">
 
 ## Convert to decimal
+![IMG_0065](https://github.com/hasmhib/unit2-2024/assets/142870448/9d6defdd-7f1b-4f1b-ba07-5cbbd0b986ab)
 
