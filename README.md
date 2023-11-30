@@ -51,7 +51,10 @@ _TOK Connection: To what extent does ```the use of data science``` in climate re
 | Task No | Planned Action                                                | Planned Outcome                                                                                                 | Time estimate | Target completion date | Criterion |
 |---------|---------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|---------------|------------------------|-----------|
 | 1       | Write the Problem context                        | a clear defenition of the problem | 10min         | Nov 22                 | A         |
-|2| | | |
+|2| 	Write the list of materials| Have a full list of materials | 5min | Nov 28 | B
+|3| 	Brainstorm and write ploblem definition| A clear design statement that suits the need of the client | 20min| Nov 29 |A|
+|4|  | | | | | 
+|5|  | | | | | 
 
 ## Test Plan
 
