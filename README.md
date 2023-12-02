@@ -64,6 +64,20 @@ _TOK Connection: To what extent does ```the use of data science``` in climate re
 
 ## Development
 
+```.py
+# to get the data from sensor
+def get_sensor(id:int,url:str = "192.168.6.153"):
+    request = requests.get(f"http//{url}")
+    data = request.json()
+    readings = data["readings"][0]
+    out = []
+    for r in readings:
+        if r["sensor_id"] == id:
+            out.append(r["value"])
+    return out 
+
+```
+
 
 # Criteria D: Functionality
 
