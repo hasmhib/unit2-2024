@@ -53,8 +53,12 @@ _TOK Connection: To what extent does ```the use of data science``` in climate re
 | 1       | Write the Problem context                        | a clear defenition of the problem | 10min         | Nov 22                 | A         |
 |2| 	Write the list of materials| Have a full list of materials | 5min | Nov 28 | B
 |3| 	Brainstorm and write ploblem definition| A clear design statement that suits the need of the client | 20min| Nov 29 |A|
-|4|  | | | | | 
-|5|  | | | | | 
+|4 | make a code for arduino with Arduino IDE | define each sensor and | 30 min | December 2 |  C | 
+|5| define read_arduino() | read data from arduino| 1 hour | Decemver 2 | C | 
+|6| define send_csv() | send data I got from read_arduino() to reading_csv| 3 hour | December 2 | C | 
+|7| define main()| set time to get temperature and humidity |  2 hour | December 2  | C | 
+|8| define login() | require username and password to see the data to keep it safely| 1 hour | December 3 | C | 
+|9| |  | | | | 
 
 ## Test Plan
 
