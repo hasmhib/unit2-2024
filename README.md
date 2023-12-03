@@ -58,7 +58,8 @@ _TOK Connection: To what extent does ```the use of data science``` in climate re
 |6| define send_csv() | send data I got from read_arduino() to reading_csv| 3 hour | December 2 | C | 
 |7| define main()| set time to get temperature and humidity |  2 hour | December 2  | C | 
 |8| define login() | require username and password to see the data to keep it safely| 1 hour | December 3 | C | 
-|9| |  | | | | 
+|9| define get_sensor() | get data from the url to draw the graph | 1 hour | Decenber 3 | C | 
+|10| define send_data() | add data(datetime,sensor_id and value) to url | 1 hour | December 3 | C  | 
 
 ## Test Plan
 
