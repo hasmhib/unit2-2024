@@ -75,22 +75,30 @@ _TOK Connection: To what extent does ```the use of data science``` in climate re
 # Criteria C: Development
 
 ## List of techniques used
+1. Functions
+
+2. Lists
+
+3. For loops
+
+4. While loops
+
+5. PIN connection validation
+
+6. File reading
+
+7. Writing in a csv file
+
+8. Loging to the Api servers 
+
+9. Sending data to Api servers
+
+10. Reading data from the Api server
+
+11. Plotting graph
 
 ## Development
 
-```.py
-# to get the data from sensor
-def get_sensor(id:int,url:str = "192.168.6.153"):
-    request = requests.get(f"http//{url}")
-    data = request.json()
-    readings = data["readings"][0]
-    out = []
-    for r in readings:
-        if r["sensor_id"] == id:
-            out.append(r["value"])
-    return out 
-
-```
 
 
 # Criteria D: Functionality
