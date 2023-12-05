@@ -40,6 +40,10 @@ _TOK Connection: To what extent does ```the use of data science``` in climate re
 
 # Criteria B: Design
 
+## Flow diagram
+
+<img width="421" alt="Screenshot 2023-12-05 at 11 42 08" src="https://github.com/hasmhib/unit2-2024/assets/142702159/b39c437f-54b5-4b89-9af8-2c546a712e28">
+
 ## System Diagram
 
 ![HL](https://github.com/comsci-uwc-isak/unit2_2023/assets/53995212/4891d5e9-b8ab-46ed-bd75-b606e25e3383)
