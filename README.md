@@ -50,7 +50,8 @@ This flow diagram shows the function called create_new sensor. This function is 
 This functioin makes it available to post the data with new id.
 
 
-<img width="280" alt="Screenshot 2023-12-07 at 20 29 21" src="https://github.com/hasmhib/unit2-2024/assets/142702159/f24e474b-aad6-4102-a795-fe0f19b7fbca">
+<img width="433" alt="Screenshot 2023-12-07 at 21 12 59" src="https://github.com/hasmhib/unit2-2024/assets/142702159/87752997-7f81-415d-8c37-d2727ceef3a8">
+
 
 **fig2** flow diagram of the function, get_sensor.
 
@@ -75,6 +76,10 @@ This flow diagram shows the function called get_sensor.By using request library,
 |7| define main()| set time to get temperature and humidity |  2 hours | December 2  | C | 
 |8| define login() | require username and password to see the data to keep it safely| 1 hour | December 3 | C | 
 |9| define send_data() | add data(datetime,sensor_id and value) to url | 1 hour | December 3 | C  | 
+|10| make the function to get the list from csv file | organize the data to draw graph | 2 hour | December 4 | C  | 
+|11| draw the flow diagram | make it claery how to organize the code | 1 hour | December 3 | C  | 
+
+
 
 ## Test Plan
 | Test Type | Target | Procedure | Expected Outcome |
