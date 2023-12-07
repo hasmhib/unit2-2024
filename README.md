@@ -44,14 +44,23 @@ _TOK Connection: To what extent does ```the use of data science``` in climate re
 
 <img width="421" alt="Screenshot 2023-12-05 at 11 42 08" src="https://github.com/hasmhib/unit2-2024/assets/142702159/b39c437f-54b5-4b89-9af8-2c546a712e28">
 
+**fig1** flow diagram of the function, create_new_sensor
+
+This flow diagram shows the function called create_new sensor. This function is for creating a new sensor in the API. By using login function, user can get the access token.
+This functioin makes it available to post the data with new id.
+
+
 <img width="280" alt="Screenshot 2023-12-07 at 20 29 21" src="https://github.com/hasmhib/unit2-2024/assets/142702159/f24e474b-aad6-4102-a795-fe0f19b7fbca">
 
+**fig2** flow diagram of the function, get_sensor.
+
+This flow diagram shows the function called get_sensor.By using request library, get data from API and arrange them as json file. Only pick the value with the specific sensor_id, and add to the list. The list is for drawing graph.
 
 ## System Diagram
 
 ![HL](https://github.com/comsci-uwc-isak/unit2_2023/assets/53995212/4891d5e9-b8ab-46ed-bd75-b606e25e3383)
 
-**Fig.1** shows the system diagram for the proposed solution (**HL**). The indoor variables will be measured using an Arduino and three DHT11 sensors located inside a room. Three sensors are used to determine more precisely the physical values and include measurement uncertainty. The outdoor variables will be requested to the remote server using a GET request to the API of the server at ```192.168.6.153/readings```. The local values are stored in a CSV database locally and a backup copy will be store in the remote server using the **Weather API**. 
+**Fig.2** shows the system diagram for the proposed solution (**HL**). The indoor variables will be measured using an Arduino and three DHT11 sensors located inside a room. Three sensors are used to determine more precisely the physical values and include measurement uncertainty. The outdoor variables will be requested to the remote server using a GET request to the API of the server at ```192.168.6.153/readings```. The local values are stored in a CSV database locally and a backup copy will be store in the remote server using the **Weather API**. 
 
 
 ## Record of Tasks
