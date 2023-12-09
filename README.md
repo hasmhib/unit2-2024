@@ -75,13 +75,13 @@ This flow diagram shows the function called get_sensor.By using request library,
 |6| define send_csv() | send data I got from read_arduino() to reading_csv| 3 hours | December 2 | C | 
 |7| define main()| set time to get temperature and humidity |  2 hours | December 2  | C | 
 |8| define login() | require username and password to see the data to keep it safely| 1 hour | December 3 | C | 
-|9| define send_data() | add data(datetime,sensor_id and value) to url | 1 hour | December 3 | C  | 
+|9| define send_data() | add data(datetime,sensor_id and value) to url | 3 hour | December 3 | C  | 
 |10| make the function to get the list from csv file | organize the data to draw graph | 2 hour | December 4 | C  | 
 |11| draw the flow diagram | make it claery how to organize the code | 1 hour | December 3 | C  | 
 
 
 
-## Test Plan
+## Test Plan 
 | Test Type | Target | Procedure | Expected Outcome |
 |-----------|--------|-----------|------------------|
 | Functional: Integrational testing | Connect to server | 1. Open the program file containing the code developed in order to connect to the server and extract or send data from/to a suitable place 2. Run the program in the terminal 3. Check if data is being collected and uploaded to the .csv file and to the server by looking at the adequate sensor id and see if it matches the id of sensors used for the data collecting|The program should run and print data into the remote server. It should make sure that all sensors are collecting data, and uploading it onto both a .csv file and the remote server.|
@@ -119,6 +119,59 @@ This flow diagram shows the function called get_sensor.By using request library,
 11. Plotting graph
 
 ## Development
+
+## login and create a new sensor
+
+```.py
+
+import requests
+
+
+def login():
+    user = {"username": "Ayane", "password": "12"}
+    r = requests.post('http://192.168.6.153/login', json=user)
+    access_token = r.json()["access_token"]
+    return {"Authorization": f"Bearer {access_token}"}
+
+```
+
+```.py
+
+
+def create_new_sensor(name, sensor_type, location, unit=""):
+    ip = "192.168.6.153"
+    headers = login()
+    sensor = {"name": name, "type": sensor_type, "location": location, "unit": unit}
+    ans = requests.post(f"http://{ip}/sensor/new", json=sensor, headers=headers)
+    print(ans.json())
+    json = ans.json()
+    return json["id"]
+```
+
+
+## what I got from the function
+```.py
+create_new_sensor("Ayane_no_t1","Temeperature","R2-10","C")
+#{"type": "Temperature","owner_id": 5, "unit": "C", "location": "R2-10", "name": "Ayane_no_t1","id": 68},
+create_new_sensor("Ayane_no_t2","Temeperature","R2-10","C")
+# {"type": "Temperature", "owner_id": 5, "unit": "C", "location": "R2-10","name": "Ayane_no_t2","id": 69 },
+create_new_sensor("Ayane_no_t3","Temeperature","R2-10","C")
+# {"type": "Temperature","owner_id": 5,"unit": "C","location": "R2-10", "name": "Ayane_no_t3","id": 70},
+create_new_sensor("Ayane_no_h1","Humidity","R2-10","%")
+#{ "type": "Humidity", "owner_id": 5, "unit": "%","location": "R2-10", "name": "Ayane_no_h1","id": 71},
+create_new_sensor("Ayane_no_h2","Humidity","R2-10","%")
+# {"type": "Humidity","owner_id": 5, "unit": "%","location": "R2-10","name": "Ayane_no_h2","id": 72 },
+create_new_sensor("Ayane_no_h3","Humidity","R2-10","%")
+# {"type": "Humidity","owner_id": 5,"unit": "%","location": "R2-10","name": "Ayane_no_h3","id": 73}
+```
+
+I defined a function called login that facilitates user authentication to a web service. The function takes no arguments and is responsible for generating and returning an authorization token required for subsequent secured interactions with the service. Inside the function, a dictionary user is created with a predefined username and password. The requests.post method is then utilized to send a POST request to the specified URL ('http://192.168.6.153/login') with the user credentials provided as json data. The response from the server is parsed as json, and the access token, a crucial element for authorization, is extracted. Finally, the function constructs and returns a dictionary with an "Authorization" key, incorporating the obtained access token using the Bearer token authentication scheme. This token can be subsequently used in the headers of other HTTP requests to access secured endpoints on the web service.
+
+
+Next I defined the function, create_new_sensor to create a new sensor in the URL. The function requires the name of the sensor, sensor type(in this case, Temperature or Humidity), location where user wants to put the sensor and unit(C or %). By using login function, user can loggin to the ip("192.168.6.153"). The request.post method is utilized to send a post request with the dictionary including the details user input as json file and the return of login function as headers. In order to ensure user could send, I set the code as user can receive what user send to the surver with printing ans(=requests.post(f"http://{ip}/sensor/new", json=sensor, headers=headers)) as json file. I got the it as "what I got from the function".
+
+
+
 
 
 
