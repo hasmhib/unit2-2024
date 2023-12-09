@@ -168,8 +168,25 @@ create_new_sensor("Ayane_no_h3","Humidity","R2-10","%")
 I defined a function called login that facilitates user authentication to a web service. The function takes no arguments and is responsible for generating and returning an authorization token required for subsequent secured interactions with the service. Inside the function, a dictionary user is created with a predefined username and password. The requests.post method is then utilized to send a POST request to the specified URL ('http://192.168.6.153/login') with the user credentials provided as json data. The response from the server is parsed as json, and the access token, a crucial element for authorization, is extracted. Finally, the function constructs and returns a dictionary with an "Authorization" key, incorporating the obtained access token using the Bearer token authentication scheme. This token can be subsequently used in the headers of other HTTP requests to access secured endpoints on the web service.
 
 
-Next I defined the function, create_new_sensor to create a new sensor in the URL. The function requires the name of the sensor, sensor type(in this case, Temperature or Humidity), location where user wants to put the sensor and unit(C or %). By using login function, user can loggin to the ip("192.168.6.153"). The request.post method is utilized to send a post request with the dictionary including the details user input as json file and the return of login function as headers. In order to ensure user could send, I set the code as user can receive what user send to the surver with printing ans(=requests.post(f"http://{ip}/sensor/new", json=sensor, headers=headers)) as json file. I got the it as "what I got from the function".
+Next, I defined the function create_new_sensor to create a new sensor in the URL. The function requires the name of the sensor, sensor type (in this case, Temperature or Humidity), location where the user wants to put the sensor, and unit (C or %). By using the login function, the user can log in to the IP ("192.168.6.153"). The requests.post method is utilized to send a POST request with the dictionary including the details the user input as a JSON file and the return of the login function as headers. In order to ensure the user could receive what they send to the server, I set the code so that the user can see the server's response with printing ans (equal to requests.post(f"http://{ip}/sensor/new", json=sensor, headers=headers)) as a JSON file. The results are presented in what I got from the function section, demonstrating the successful creation of new sensors with different specifications.
 
+
+
+
+## read arduino
+```.py
+def read_arduino():
+    arduino = serial.Serial(port="/dev/cu.usbserial-10", baudrate=9600, timeout=0.1)
+    msg =
+
+    while len(msg) < 1:
+        msg = arduino.readline()
+    sensors = msg.decode("utf-8")
+    t1,t2,t3,h1,h2,h3 = sensors.split(",")
+
+    return sensors
+
+```
 
 
 
