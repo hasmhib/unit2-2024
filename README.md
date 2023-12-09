@@ -230,34 +230,31 @@ def main():
 ```
 **code4** The code above shows how I set the interval to record the data every 5 min for 48 hours and send the data to csv file. Each data is splited by ",".
 
+<img width="1120" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
+
+**fig5** This picture shows how is data seved to reading.csv.
+
+
 ```.py
-def make_list():
-    with (open("formatted_data.csv", "r") as file):
+def process_data():
+    output=[]
+    with open('reading.csv', 'r') as file:
         lines = file.readlines()
-        date = []
-        t1 = []
-        h1 = []
-        t2 = []
-        h2 = []
-        t3 = []
-        h3 = []
-        for text in lines:
-            lists = text.split(",")
-            if len(lists) >= 7:
-                date.append(lists[0])
-                h1.append(float(lists[1]))
-                t1.append(float(lists[2]))
-                h2.append(float(lists[3]))
-                t2.append(float(lists[4]))
-                h3.append(float(lists[5]))
-                t3.append(float(lists[6]))
-        print(date)
-        print(h2)
-        print(h3)
-        print(t1)
-        print(t2)
-        print(t3)
-    return date,h1,t1,h2,t2,h3,t3
+        for i in range(0,len(lines)-8,8):
+            temp = lines[i:i+8]
+            temp2 = []
+            for text in temp:
+                if text != "\n":
+                    temp4=text[0:len(text)-1].strip(",").strip(" ")
+                    temp2.append(temp4)
+            temp2[0]=temp2[0][0:10]+","+temp2[0][11:]
+            temp2[1]=temp2[1][:6]+temp2[1][7:]
+            temp2[2] = temp2[2][:6] + temp2[2][7:]
+            temp2[3] = temp2[3][:6] + temp2[3][7:]
+            output.append(",".join(temp2))
+    # Write the result back to a new file
+    with open('formatted_data.csv', 'w') as output_file:
+        output_file.write("\n".join(output))
 
 def make_list():
     with (open("formatted_data.csv", "r") as file):
@@ -289,7 +286,17 @@ def make_list():
 
 
 ```
-**code5**The codes above show how to reorganize the data in reading csv file and make a list from the new csv file.
+**code5**The codes above show how to reorganize the data in reading.csv and make a list from the new csv file.
+
+<img width="636" alt="Screenshot 2023-12-09 at 13 18 32" src="https://github.com/hasmhib/unit2-2024/assets/142702159/11a08261-0173-41a4-8004-8821f78318b9">
+
+**fig6** This picture shows how is the value reorganized in formatted_data.csv.
+
+<img width="1325" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
+
+**fig7** This picture shows the result of the function, make_list.
+
+
 
 # Criteria D: Functionality
 A 7 min video demonstrating the proposed solution with narration
