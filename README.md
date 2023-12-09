@@ -118,6 +118,7 @@ This flow diagram shows the function called get_sensor.By using request library,
 
 11. Plotting graph
 
+
 ## Development
 
 ## login and create a new sensor
@@ -173,7 +174,7 @@ Next, I defined the function create_new_sensor to create a new sensor in the URL
 
 
 
-## read arduino
+
 ```.py
 def read_arduino():
     arduino = serial.Serial(port="/dev/cu.usbserial-10", baudrate=9600, timeout=0.1)
@@ -194,27 +195,9 @@ def read_arduino():
     d3 = d3.docode("utf-8")
     return d1, d2, d3
 ```
+**code3** The code above shows how to read data from arduino. I defined the data from each sensor as d1, d2, d3 to send csv file.
 
-## set time to record the data
 ```.py
-def main():
-    start_time = datetime.now()
-    total_duration = timedelta(hours=48)  # Total duration for data collection
-
-    while datetime.now() - start_time < total_duration:
-        # Collect data for 5 minutes
-        end_time = datetime.now() + timedelta(minutes=5)
-        while datetime.now() < end_time:
-            d1, d2, d3 = read_arduino()
-            save_csv((d1, d2, d3))
-            sleep(300)  # Sleep for 10 seconds between readings
-
-    print("Data collection complete.")
-```
-
-## send data to csvfile
-```.py
-
 def save_csv(data, file_name="reading.csv"):
     d1, d2, d3 = data
     print("Raw data:", d1, d2, d3)  # Add this line to print the raw data
@@ -231,8 +214,82 @@ def save_csv(data, file_name="reading.csv"):
             humidity3, temperature3 = d3.split(',')
             f.write(f"Sensor 3: Humidity: {humidity3} Temperature: {temperature3}\n\n")
 
+def main():
+    start_time = datetime.now()
+    total_duration = timedelta(hours=48)  # Total duration for data collection
+
+    while datetime.now() - start_time < total_duration:
+        # Collect data for 5 minutes
+        end_time = datetime.now() + timedelta(minutes=5)
+        while datetime.now() < end_time:
+            d1, d2, d3 = read_arduino()
+            save_csv((d1, d2, d3))
+            sleep(300)  # Sleep for 10 seconds between readings
+
+    print("Data collection complete.")
 ```
+**code4** The code above shows how I set the interval to record the data every 5 min for 48 hours and send the data to csv file. Each data is splited by ",".
+
+```.py
+def make_list():
+    with (open("formatted_data.csv", "r") as file):
+        lines = file.readlines()
+        date = []
+        t1 = []
+        h1 = []
+        t2 = []
+        h2 = []
+        t3 = []
+        h3 = []
+        for text in lines:
+            lists = text.split(",")
+            if len(lists) >= 7:
+                date.append(lists[0])
+                h1.append(float(lists[1]))
+                t1.append(float(lists[2]))
+                h2.append(float(lists[3]))
+                t2.append(float(lists[4]))
+                h3.append(float(lists[5]))
+                t3.append(float(lists[6]))
+        print(date)
+        print(h2)
+        print(h3)
+        print(t1)
+        print(t2)
+        print(t3)
+    return date,h1,t1,h2,t2,h3,t3
+
+def make_list():
+    with (open("formatted_data.csv", "r") as file):
+        lines = file.readlines()
+        date = []
+        t1 = []
+        h1 = []
+        t2 = []
+        h2 = []
+        t3 = []
+        h3 = []
+        for text in lines:
+            lists = text.split(",")
+            if len(lists) >= 7:
+                date.append(lists[0])
+                h1.append(float(lists[1]))
+                t1.append(float(lists[2]))
+                h2.append(float(lists[3]))
+                t2.append(float(lists[4]))
+                h3.append(float(lists[5]))
+                t3.append(float(lists[6]))
+        print(date)
+        print(h2)
+        print(h3)
+        print(t1)
+        print(t2)
+        print(t3)
+    return date,h1,t1,h2,t2,h3,t3
+
+
+```
+**code5**The codes above show how to reorganize the data in reading csv file and make a list from the new csv file.
 
 # Criteria D: Functionality
-
 A 7 min video demonstrating the proposed solution with narration
