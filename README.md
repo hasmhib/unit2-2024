@@ -286,7 +286,7 @@ def make_list():
 
 
 ```
-**code5**The codes above show how to reorganize the data in reading.csv and make a list from the new csv file.
+**code5** The codes above show how to reorganize the data in reading.csv and make a list from the new csv file.
 
 <img width="636" alt="Screenshot 2023-12-09 at 13 18 32" src="https://github.com/hasmhib/unit2-2024/assets/142702159/11a08261-0173-41a4-8004-8821f78318b9">
 
