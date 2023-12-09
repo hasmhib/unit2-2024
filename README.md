@@ -149,7 +149,7 @@ def create_new_sensor(name, sensor_type, location, unit=""):
 ```
 
 
-## what I got from the function
+### what I got from the function
 ```.py
 create_new_sensor("Ayane_no_t1","Temeperature","R2-10","C")
 #{"type": "Temperature","owner_id": 5, "unit": "C", "location": "R2-10", "name": "Ayane_no_t1","id": 68},
@@ -177,20 +177,61 @@ Next, I defined the function create_new_sensor to create a new sensor in the URL
 ```.py
 def read_arduino():
     arduino = serial.Serial(port="/dev/cu.usbserial-10", baudrate=9600, timeout=0.1)
-    msg =
-
-    while len(msg) < 1:
-        msg = arduino.readline()
-    sensors = msg.decode("utf-8")
-    t1,t2,t3,h1,h2,h3 = sensors.split(",")
-
-    return sensors
-
+    d1 = ""
+    while len(d1< 1):
+        data = arduino.readline()
+    d1 = ""
+    while len(d1 < 1):
+        data = arduino.readline()
+    d2 = ""
+    while len(d2 < 1):
+        data = arduino.readline()
+    d3 = ""
+    while len(d3 < 1):
+        data = arduino.readline()
+    d1 = d1.docode("utf-8")
+    d2 = d2.docode("utf-8")
+    d3 = d3.docode("utf-8")
+    return d1, d2, d3
 ```
 
+## set time to record the data
+```.py
+def main():
+    start_time = datetime.now()
+    total_duration = timedelta(hours=48)  # Total duration for data collection
 
+    while datetime.now() - start_time < total_duration:
+        # Collect data for 5 minutes
+        end_time = datetime.now() + timedelta(minutes=5)
+        while datetime.now() < end_time:
+            d1, d2, d3 = read_arduino()
+            save_csv((d1, d2, d3))
+            sleep(300)  # Sleep for 10 seconds between readings
 
+    print("Data collection complete.")
+```
 
+## send data to csvfile
+```.py
+
+def save_csv(data, file_name="reading.csv"):
+    d1, d2, d3 = data
+    print("Raw data:", d1, d2, d3)  # Add this line to print the raw data
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open(file_name, "a") as f:
+        f. write(f"{timestamp},\n")
+        if ',' in d1:
+            humidity1, temperature1 = d1.split(',')
+            f.write(f"Sensor 1: Humidity: {humidity1} Temperature: {temperature1}\n")
+        if ',' in d2:
+            humidity2, temperature2 = d2.split(',')
+            f.write(f"Sensor 2: Humidity: {humidity2} Temperature: {temperature2}\n")
+        if ',' in d3:
+            humidity3, temperature3 = d3.split(',')
+            f.write(f"Sensor 3: Humidity: {humidity3} Temperature: {temperature3}\n\n")
+
+```
 
 # Criteria D: Functionality
 
