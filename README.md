@@ -180,9 +180,10 @@ create_new_sensor("Ayane_no_h3","Humidity","R2-10","%")
 ```
 **code2** The function called create_new_sensor.
 
+# get data from arduino
 I defined a function named read_arduino to retrieve data from an Arduino device. This function utilizes the Serial library, providing the capability to distinguish and collect data from the Arduino. It requires parameters such as the port, which signifies the Arduino's name, baudrate, representing the communication speed, and timeout, specifying the duration for connection timeout. Three variables, namely d1, d2, and d3, are initialized as empty strings. However, as nothing is appended to them within the while loop, the loop persists indefinitely. Inside the loop, the readline method is invoked on the Arduino data. Notably, each sensor's data (d1, d2, and d3) should be received in succession, yet the current implementation reads the same data for each sensor in a loop. Furthermore, the code attempts to decode the binary data into a Unicode string using the UTF-8 encoding. UTF-8 is chosen for its ability to represent every character in the Unicode character set. It's worth noting that the code might have some logical issues, as the while loop conditions are not effectively checking the length of the data, and the variables d1, d2, and d3 are assigned the same decoded data.
 
-# get data from arduino
+
 ```.py
 def read_arduino():
     arduino = serial.Serial(port="/dev/cu.usbserial-10", baudrate=9600, timeout=0.1)
@@ -198,7 +199,8 @@ def read_arduino():
     d3 = data.decode("utf-8")
     return d1, d2, d3
 ```
-**code3** The code above shows how to read data from arduino. I defined the data from each sensor as d1, d2, d3 to send csv file.
+**code3** The code above shows how to read data from arduino.
+
 
 ```.py
 def save_csv(data, file_name="reading.csv"):
@@ -216,7 +218,10 @@ def save_csv(data, file_name="reading.csv"):
         if ',' in d3:
             humidity3, temperature3 = d3.split(',')
             f.write(f"Sensor 3: Humidity: {humidity3} Temperature: {temperature3}\n\n")
+```
+**code4** The code above shows how I set the interval to record the data every 5 min for 48 hours.
 
+```.py
 def main():
     start_time = datetime.now()
     total_duration = timedelta(hours=48)  # Total duration for data collection
@@ -231,7 +236,7 @@ def main():
 
     print("Data collection complete.")
 ```
-**code4** The code above shows how I set the interval to record the data every 5 min for 48 hours and send the data to csv file. Each data is splited by ",".
+**code5** The code above shows how I send the data to csv file. 
 
 <img width="1120" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
 
