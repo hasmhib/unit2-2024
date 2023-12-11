@@ -78,6 +78,10 @@ This flow diagram shows the function called get_sensor.By using request library,
 |9| define send_data() | add data(datetime,sensor_id and value) to url | 3 hour | December 3 | C  | 
 |10| make the function to get the list from csv file | organize the data to draw graph | 2 hour | December 4 | C  | 
 |11| draw the flow diagram | make it claery how to organize the code | 1 hour | December 3 | C  | 
+|12| draw graphs of each sensor| See the change of value specificly | 3 hour | December 4 | C  | 
+|13| draw smooth graphs of each sensor | See the cange of the value simply | 2 hour | December 5 | C  | 
+
+
 
 
 
@@ -176,26 +180,22 @@ create_new_sensor("Ayane_no_h3","Humidity","R2-10","%")
 ```
 **code2** The function called create_new_sensor.
 
-
+I define the function called read_arduino. This function is to get data from arduino.
+Serial library provide the benefit to recognize each data and require port, which is the name of the arduino, baudrate, which represents the speed of the communication and timeout, which is the timelag when the connection is cut. Each sensor, d1,d2 and d2 represents the each sensor.
 
 ```.py
 def read_arduino():
     arduino = serial.Serial(port="/dev/cu.usbserial-10", baudrate=9600, timeout=0.1)
-    d1 = ""
+    d1,d2,d3 = "","",""
     while len(d1< 1):
         data = arduino.readline()
-    d1 = ""
-    while len(d1 < 1):
-        data = arduino.readline()
-    d2 = ""
     while len(d2 < 1):
         data = arduino.readline()
-    d3 = ""
     while len(d3 < 1):
         data = arduino.readline()
-    d1 = d1.docode("utf-8")
-    d2 = d2.docode("utf-8")
-    d3 = d3.docode("utf-8")
+    d1 = data.docode("utf-8")
+    d2 = data.docode("utf-8")
+    d3 = data.docode("utf-8")
     return d1, d2, d3
 ```
 **code3** The code above shows how to read data from arduino. I defined the data from each sensor as d1, d2, d3 to send csv file.
