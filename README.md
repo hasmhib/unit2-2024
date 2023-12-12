@@ -131,9 +131,13 @@ This flow diagram shows the function called get_sensor.By using request library,
 We fulfilled this success criteria 1 by:
 
 Code 1: Implementing a login function for secure API authentication and a create_new_sensor function to register new temperature and humidity sensors in a dormitory (local) and outside the house (remote).
+
 Code 2: Creating a read_arduino function to collect data from the Arduino sensors. Although it needs refinement to avoid reading data in an infinite loop, it's designed to differentiate between the sensors' data.
+
 Code 3 and 4: Designing a system that captures sensor data over a period of 48 hours and stores it in a CSV file using the save_csv_data function, which can be used to create a visual representation of the data.
+
 Code 5: Processing the raw sensor data for clarity and organization using the process_data function and then creating a list of the data points with the make_list function, making the data ready for analysis or visualization.
+
 Code 6: Finalizing the process by sending the organized data to a server with the send_data function, which could then be used for monitoring or visualizing temperature and humidity data in a meaningful way.
 
 Fig 4,5,6,7: These visualizations offer a detailed and clear representation of both humidity and temperature over a specified period, satisfying the criteria of visual representation.
@@ -142,6 +146,7 @@ The code includes comments, labels, legends, and titles that make the graphs inf
 ## login and create a new sensor
 
 I defined a function called login that facilitates user authentication to a web service. The function takes no arguments and is responsible for generating and returning an authorization token required for subsequent secured interactions with the service. Inside the function, a dictionary user is created with a predefined username and password. The requests.post method is then utilized to send a POST request to the specified URL ('http://192.168.6.153/login') with the user credentials provided as json data. The response from the server is parsed as json, and the access token, a crucial element for authorization, is extracted. Finally, the function constructs and returns a dictionary with an "Authorization" key, incorporating the obtained access token using the Bearer token authentication scheme. This token can be subsequently used in the headers of other HTTP requests to access secured endpoints on the web service.
+
 
 **code1** The function called login.
 ```.py
@@ -160,8 +165,6 @@ def login():
 Next, I defined the function create_new_sensor to create a new sensor in the URL. The function requires the name of the sensor, sensor type (in this case, Temperature or Humidity), location where the user wants to put the sensor, and unit (C or %). By using the login function, the user can log in to the IP ("192.168.6.153"). The requests.post method is utilized to send a POST request with the dictionary including the details the user input as a JSON file and the return of the login function as headers. In order to ensure the user could receive what they send to the server, I set the code so that the user can see the server's response with printing ans (equal to requests.post(f"http://{ip}/sensor/new", json=sensor, headers=headers)) as a JSON file. The results are presented in what I got from the function section, demonstrating the successful creation of new sensors with different specifications.
 
 
-
-
 ```.py
 
 
@@ -177,6 +180,7 @@ def create_new_sensor(name, sensor_type, location, unit=""):
 
 
 ### what I got from the function
+
 
 **code2** The function called create_new_sensor.
 ```.py
@@ -194,8 +198,9 @@ create_new_sensor("Ayane_no_h3","Humidity","R2-10","%")
 # {"type": "Humidity","owner_id": 5,"unit": "%","location": "R2-10","name": "Ayane_no_h3","id": 73}
 ```
 
-# get data from arduino
+## get data from arduino
 I defined a function named read_arduino to retrieve data from an Arduino device. This function utilizes the Serial library, providing the capability to distinguish and collect data from the Arduino. It requires parameters such as the port, which signifies the Arduino's name, baudrate, representing the communication speed, and timeout, specifying the duration for connection timeout. Three variables, namely d1, d2, and d3, are initialized as empty strings. However, as nothing is appended to them within the while loop, the loop persists indefinitely. Inside the loop, the readline method is invoked on the Arduino data. Notably, each sensor's data (d1, d2, and d3) should be received in succession, yet the current implementation reads the same data for each sensor in a loop. Furthermore, the code attempts to decode the binary data into a Unicode string using the UTF-8 encoding. UTF-8 is chosen for its ability to represent every character in the Unicode character set. It's worth noting that the code might have some logical issues, as the while loop conditions are not effectively checking the length of the data, and the variables d1, d2, and d3 are assigned the same decoded data.
+
 
 **code3** The code above shows how to read data from arduino.
 ```.py
@@ -250,7 +255,7 @@ def main():
 
     print("Data collection complete.")
 ```
-**fig5** This picture shows how is data seved to reading.csv.
+**fig1** This picture shows how is data seved to reading.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
 
 **code5** The codes above show how to reorganize the data in reading.csv and make a list from the new csv file.
@@ -305,10 +310,10 @@ def make_list():
 
 
 ```
-**fig1** This picture shows how is the value reorganized in formatted_data.csv.
+**fig2** This picture shows how is the value reorganized in formatted_data.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 32" src="https://github.com/hasmhib/unit2-2024/assets/142702159/11a08261-0173-41a4-8004-8821f78318b9">
 
-**fig2** This picture shows the result of the function, make_list.
+**fig3** This picture shows the result of the function, make_list.
 <img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
 
 **code6** The code above shows how to send data to the surver and receive what user sent to it.
@@ -332,7 +337,7 @@ send_data(t2,date, 69)
 send_data(t3,date,70)
 ```
 
-**fig3** This picture shows the reslut of the send_data function and proof that I could send data to the server.
+**fig4** This picture shows the reslut of the send_data function and proof that I could send data to the server.
 <img width="max" alt="Screenshot 2023-12-09 at 11 58 04" src="https://github.com/hasmhib/unit2-2024/assets/142702159/aeb02410-2a0f-42d6-a239-7ce4014e3ff3">
 
 
@@ -420,10 +425,10 @@ On the frist row of the code, I am connecting the 'Date' and 'Time' columns of t
 
 In this code, I'm creating a detailed line graph to visualize room temperature data over time using Matplotlib in Python. I set the figure size and plot three humidity and temperature datasets, each representing different room humidity and temperatures, with different colors. The y-axis limits are adjusted to show the entire range of humidity and temperature data. To make a graph more easier to visualize, I add labels, a title, a legend, and a grid. The x-axis dates are formatted to display both the date and time, and I use auto-formatting features to ensure these labels are clear and non-overlapping. This approach allows me to effectively present a visual comparison of humidity and temperature changes over time in different rooms.
 
-**fig4** Shows the raw graph of humidity data recorded during 48 hours by using **code10**
+**fig5** Shows the raw graph of humidity data recorded during 48 hours by using **code10**
 <img width="max" alt="Screenshot 2023-12-12 at 11 30 57 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/135507c4-9b9f-4539-9b7b-d2317d5ba44b">
 
-**fig5** Shows the raw graph of temperature data recorded during 48 hours by using **code11**
+**fig6** Shows the raw graph of temperature data recorded during 48 hours by using **code11**
 <img width="max" alt="Screenshot 2023-12-12 at 11 31 56 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/b943561e-3fb2-40af-a152-367dd1994482">
 
 ## Smoothing these raw graphs to visualize the data easily
@@ -604,16 +609,16 @@ In this code, I used Matplotlib and GridSpec to create a comprehensive visualiza
 
 However, for remote humidity, it seems that sensor 3 is broken and not functioning properly. Therefore, I calculated range, mean, minimum, maximum and standard deviation of combined data from sensor 1,5 to make teh data more accurate and proper. This applies to remote temperature as well. For remote temperature, it seems that sensor 0 is broken and not functioning properly. Therefore, I calculated range, mean, minimum, maximum and standard deviation of combined data from sensor 2,4 to make teh data more accurate and proper.
 
-**fig00** Shows the graph of sensors1,3,5 (humidity) and the analysis of sensors 1,5. This includes range, mean, minimum, maximum of combined data from selected sensors.
+**fig7** Shows the graph of sensors1,3,5 (humidity) and the analysis of sensors 1,5. This includes range, mean, minimum, maximum of combined data from selected sensors.
 <img width="max" alt="Screenshot 2023-12-12 at 11 45 32 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/daf70e3b-d88f-40ff-84c5-e41cee7ade94">
 
-**fig00** Shows the graph of sensors1,3,5 (humidity) and the standard deviation of combined data from selected sensors.
+**fig8** Shows the graph of sensors1,3,5 (humidity) and the standard deviation of combined data from selected sensors.
 <img width="max" alt="Screenshot 2023-12-12 at 11 47 15 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/6d298be1-ca3c-47d3-82b6-030a716e1724">
 
-**fig00** Shows the graph of sensors0,2,4 (temperature) and the analysis of sensors 2,4. This includes range, mean, minimum, maximumof combined data from selected sensors.
+**fig9** Shows the graph of sensors0,2,4 (temperature) and the analysis of sensors 2,4. This includes range, mean, minimum, maximumof combined data from selected sensors.
 <img width="max" alt="Screenshot 2023-12-12 at 11 45 58 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/b2818635-fca8-4832-aff3-dd5d1b7fb1be">
 
-**fig00** Shows the graph of sensors0,2,4 (temperature) and the standard deviation of combined data from selected sensors.
+**fig10** Shows the graph of sensors0,2,4 (temperature) and the standard deviation of combined data from selected sensors.
 <img width="max" alt="Screenshot 2023-12-12 at 11 47 45 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/8b1fccef-3c46-4771-bd78-ea5e526f2f17">
 
 
