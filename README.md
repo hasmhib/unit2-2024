@@ -1,4 +1,4 @@
-![11e470e9022f4fc5b367429bcbb285bc](https://github.com/comsci-uwc-isak/unit2_2023/assets/53995212/1d14b1d3-ae39-4ef3-8ec9-3329630eacae)
+<img width="1000" alt="Screenshot 2023-12-12 at 11 47 45 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/245120a2-34f4-4261-9c14-c4a43035a004">![11e470e9022f4fc5b367429bcbb285bc](https://github.com/comsci-uwc-isak/unit2_2023/assets/53995212/1d14b1d3-ae39-4ef3-8ec9-3329630eacae)
 
 # Unit 2: A Distributed Weather Station for ISAK
   
@@ -125,11 +125,25 @@ This flow diagram shows the function called get_sensor.By using request library,
 
 ## Development
 
-## login and create a new sensor
 
+## 1. The client wants The solution that provides a visual representation of the Humidity and Temperature values inside a dormitory (Local) and outside the house (Remote) for a period of minimum 48 hours.
+
+We fulfilled this success criteria 1 by:
+
+Code 1: Implementing a login function for secure API authentication and a create_new_sensor function to register new temperature and humidity sensors in a dormitory (local) and outside the house (remote).
+Code 2: Creating a read_arduino function to collect data from the Arduino sensors. Although it needs refinement to avoid reading data in an infinite loop, it's designed to differentiate between the sensors' data.
+Code 3 and 4: Designing a system that captures sensor data over a period of 48 hours and stores it in a CSV file using the save_csv_data function, which can be used to create a visual representation of the data.
+Code 5: Processing the raw sensor data for clarity and organization using the process_data function and then creating a list of the data points with the make_list function, making the data ready for analysis or visualization.
+Code 6: Finalizing the process by sending the organized data to a server with the send_data function, which could then be used for monitoring or visualizing temperature and humidity data in a meaningful way.
+
+Fig 4,5,6,7: These visualizations offer a detailed and clear representation of both humidity and temperature over a specified period, satisfying the criteria of visual representation.
+The code includes comments, labels, legends, and titles that make the graphs informative and accessible to the client.
+
+## login and create a new sensor
 
 I defined a function called login that facilitates user authentication to a web service. The function takes no arguments and is responsible for generating and returning an authorization token required for subsequent secured interactions with the service. Inside the function, a dictionary user is created with a predefined username and password. The requests.post method is then utilized to send a POST request to the specified URL ('http://192.168.6.153/login') with the user credentials provided as json data. The response from the server is parsed as json, and the access token, a crucial element for authorization, is extracted. Finally, the function constructs and returns a dictionary with an "Authorization" key, incorporating the obtained access token using the Bearer token authentication scheme. This token can be subsequently used in the headers of other HTTP requests to access secured endpoints on the web service.
 
+**code1** The function called login.
 ```.py
 
 import requests
@@ -142,7 +156,6 @@ def login():
     return {"Authorization": f"Bearer {access_token}"}
 
 ```
-**code1** The function called login.
 
 Next, I defined the function create_new_sensor to create a new sensor in the URL. The function requires the name of the sensor, sensor type (in this case, Temperature or Humidity), location where the user wants to put the sensor, and unit (C or %). By using the login function, the user can log in to the IP ("192.168.6.153"). The requests.post method is utilized to send a POST request with the dictionary including the details the user input as a JSON file and the return of the login function as headers. In order to ensure the user could receive what they send to the server, I set the code so that the user can see the server's response with printing ans (equal to requests.post(f"http://{ip}/sensor/new", json=sensor, headers=headers)) as a JSON file. The results are presented in what I got from the function section, demonstrating the successful creation of new sensors with different specifications.
 
@@ -164,6 +177,8 @@ def create_new_sensor(name, sensor_type, location, unit=""):
 
 
 ### what I got from the function
+
+**code2** The function called create_new_sensor.
 ```.py
 create_new_sensor("Ayane_no_t1","Temeperature","R2-10","C")
 #{"type": "Temperature","owner_id": 5, "unit": "C", "location": "R2-10", "name": "Ayane_no_t1","id": 68},
@@ -178,12 +193,11 @@ create_new_sensor("Ayane_no_h2","Humidity","R2-10","%")
 create_new_sensor("Ayane_no_h3","Humidity","R2-10","%")
 # {"type": "Humidity","owner_id": 5,"unit": "%","location": "R2-10","name": "Ayane_no_h3","id": 73}
 ```
-**code2** The function called create_new_sensor.
 
 # get data from arduino
 I defined a function named read_arduino to retrieve data from an Arduino device. This function utilizes the Serial library, providing the capability to distinguish and collect data from the Arduino. It requires parameters such as the port, which signifies the Arduino's name, baudrate, representing the communication speed, and timeout, specifying the duration for connection timeout. Three variables, namely d1, d2, and d3, are initialized as empty strings. However, as nothing is appended to them within the while loop, the loop persists indefinitely. Inside the loop, the readline method is invoked on the Arduino data. Notably, each sensor's data (d1, d2, and d3) should be received in succession, yet the current implementation reads the same data for each sensor in a loop. Furthermore, the code attempts to decode the binary data into a Unicode string using the UTF-8 encoding. UTF-8 is chosen for its ability to represent every character in the Unicode character set. It's worth noting that the code might have some logical issues, as the while loop conditions are not effectively checking the length of the data, and the variables d1, d2, and d3 are assigned the same decoded data.
 
-
+**code3** The code above shows how to read data from arduino.
 ```.py
 def read_arduino():
     arduino = serial.Serial(port="/dev/cu.usbserial-10", baudrate=9600, timeout=0.1)
@@ -199,9 +213,8 @@ def read_arduino():
     d3 = data.decode("utf-8")
     return d1, d2, d3
 ```
-**code3** The code above shows how to read data from arduino.
 
-
+**code4** The code above shows how I set the interval to record the data every 5 min for 48 hours.
 ```.py
 def save_csv(data, file_name="reading.csv"):
     d1, d2, d3 = data
@@ -219,7 +232,8 @@ def save_csv(data, file_name="reading.csv"):
             humidity3, temperature3 = d3.split(',')
             f.write(f"Sensor 3: Humidity: {humidity3} Temperature: {temperature3}\n\n")
 ```
-**code4** The code above shows how I set the interval to record the data every 5 min for 48 hours.
+
+**code5** The code above shows how I send the data to csv file. 
 
 ```.py
 def main():
@@ -236,13 +250,10 @@ def main():
 
     print("Data collection complete.")
 ```
-**code5** The code above shows how I send the data to csv file. 
-
-<img width="1120" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
-
 **fig5** This picture shows how is data seved to reading.csv.
+<img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
 
-
+**code5** The codes above show how to reorganize the data in reading.csv and make a list from the new csv file.
 ```.py
 def process_data():
     output=[]
@@ -294,16 +305,13 @@ def make_list():
 
 
 ```
-**code5** The codes above show how to reorganize the data in reading.csv and make a list from the new csv file.
+**fig1** This picture shows how is the value reorganized in formatted_data.csv.
+<img width="max" alt="Screenshot 2023-12-09 at 13 18 32" src="https://github.com/hasmhib/unit2-2024/assets/142702159/11a08261-0173-41a4-8004-8821f78318b9">
 
-<img width="636" alt="Screenshot 2023-12-09 at 13 18 32" src="https://github.com/hasmhib/unit2-2024/assets/142702159/11a08261-0173-41a4-8004-8821f78318b9">
+**fig2** This picture shows the result of the function, make_list.
+<img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
 
-**fig6** This picture shows how is the value reorganized in formatted_data.csv.
-
-<img width="1325" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
-
-**fig7** This picture shows the result of the function, make_list.
-
+**code6** The code above shows how to send data to the surver and receive what user sent to it.
 ```.py
 def send_data(value:list,date:list,sensor_id):
     for x in range(len(value)):
@@ -324,11 +332,292 @@ send_data(t2,date, 69)
 send_data(t3,date,70)
 ```
 
-**code6** The code above shows how to send data to the surver and receive what user sent to it.
+**fig3** This picture shows the reslut of the send_data function and proof that I could send data to the server.
+<img width="max" alt="Screenshot 2023-12-09 at 11 58 04" src="https://github.com/hasmhib/unit2-2024/assets/142702159/aeb02410-2a0f-42d6-a239-7ce4014e3ff3">
 
-<img width="1343" alt="Screenshot 2023-12-09 at 11 58 04" src="https://github.com/hasmhib/unit2-2024/assets/142702159/aeb02410-2a0f-42d6-a239-7ce4014e3ff3">
 
-**fig8** This picture shows the reslut of the send_data function and proof that I could send data to the surver.
+# Plotting the graphs for local and remote humidity and temperature
+
+## Separate the columns
+
+First, I needed to separate the columns of my CSV files and create columns. By renaming the columns, I made the DataFrame more understandable and easier to manipulate for future developers. For example, if you want to access the data for 'Room Humidity 1', you can simply use data['Room Humidity 1'], thanks to this clear and descriptive naming.
+
+The CSV file contains data in a comma-separated format. Each line in the file represents a record with different data points. 
+**fig1** This picture shows how is the value reorganized in formatted_data.csv.
+<img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
+This line consists of a date, a time, humidity of sensor1, temperature of sensor1, humidity of sensor2, temperature of sensor2, humidity of sensor3 and temperature of sensor3,  each separated by a comma.
+
+After loading the data, the DataFrame has default of column headers (0, 1, 2, ...). To make the data easier to work with, I assigned names to each column to makes other developers easy to understand when they see my code. 
+I did this by setting the data.columns attribute.
+
+**code9** Shows the part of the program to assigning column names
+```.py
+data.columns = ['Date', 'Time', 'Room Humidity 1', 'Room Temperature 1',
+                'Room Humidity 2', 'Room Temperature 2', 'Room Humidity 3', 'Room Temperature 3'
+```
+
+This line replaced the default headers with the names I chose, corresponding to the type of data in each column: 'Date', 'Time', and then converting 'Room Humidity' and 'Room Temperature' labels for the various sensors.
+By renaming the columns and separating it, I made the DataFrame more understandable and easier to manipulate for future developers.
+
+## Plotting the graph of local humidity and temperature
+
+After separating the columns, I plot the graphs for the local humidity and temperature data recorded during 48 hours.
+
+**code10** Shows code used for plotting graphs for humidity data recorded during 48 hours.
+```.py
+data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
+
+plt.figure(figsize=(15, 6))
+
+plt.plot(data['Datetime'], data['Room Humidity 1'], label='Room Humidity 1', color='blue')
+
+plt.plot(data['Datetime'], data['Room Humidity 2'], label='Room Humidity 2', color='green')
+
+plt.plot(data['Datetime'], data['Room Humidity 3'], label='Room Humidity 3', color='red')
+
+plt.ylim(15, data[humidity_types].max().max())
+
+plt.xlabel('Date and Time')
+plt.ylabel('Humidity (%)')
+plt.title('Humidity Over Time')
+plt.legend()
+plt.grid(True)
+
+plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
+plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
+plt.gcf().autofmt_xdate()
+
+plt.show()
+```
+
+***code11** Shows code used for plotting graphs for temperature data recorded during 48 hours.
+```.py
+data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
+
+plt.figure(figsize=(15, 6))
+
+plt.plot(data['Datetime'], data['Room Temperature 1'], label='Room Temperature 1', color='orange')
+
+plt.plot(data['Datetime'], data['Room Temperature 2'], label='Room Temperature 2', color='purple')
+
+plt.plot(data['Datetime'], data['Room Temperature 3'], label='Room Temperature 3', color='brown')
+
+plt.ylim(data[temperature_types].min().min(), data[temperature_types].max().max())
+
+plt.xlabel('Date and Time')
+plt.ylabel('Temperature (°C)')
+plt.title('Temperature Over Time')
+plt.legend()
+plt.grid(True)
+
+plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
+plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
+plt.gcf().autofmt_xdate()
+
+plt.show()
+```
+On the frist row of the code, I am connecting the 'Date' and 'Time' columns of the DataFrame. This is because to create a single string for each row that represents both the date and time.
+
+In this code, I'm creating a detailed line graph to visualize room temperature data over time using Matplotlib in Python. I set the figure size and plot three humidity and temperature datasets, each representing different room humidity and temperatures, with different colors. The y-axis limits are adjusted to show the entire range of humidity and temperature data. To make a graph more easier to visualize, I add labels, a title, a legend, and a grid. The x-axis dates are formatted to display both the date and time, and I use auto-formatting features to ensure these labels are clear and non-overlapping. This approach allows me to effectively present a visual comparison of humidity and temperature changes over time in different rooms.
+
+**fig4** Shows the raw graph of humidity data recorded during 48 hours by using **code10**
+<img width="max" alt="Screenshot 2023-12-12 at 11 30 57 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/135507c4-9b9f-4539-9b7b-d2317d5ba44b">
+
+**fig5** Shows the raw graph of temperature data recorded during 48 hours by using **code11**
+<img width="max" alt="Screenshot 2023-12-12 at 11 31 56 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/b943561e-3fb2-40af-a152-367dd1994482">
+
+## Smoothing these raw graphs to visualize the data easily
+
+## Plot graphs of remote humidity and temperature
+
+The client wants the visual representation of the Humidity and Temperature values outside the house (Remote) for a period of minimum 48 hours as well. Therefore, I created a graph with the data from remote humidity and temperature. This is done by using functions get_sensors and get_sensors_datetime.
+
+**code00** 
+```.py
+def get_sensors(ids:list[int]=[1]):
+    recordings = get_readings()
+    my_sensors = {}
+    for i in ids:
+        my_sensors[i] = []
+    for rec in recordings:
+        id_sensor = rec['sensor_id']
+        if id_sensor in ids:
+            value = rec['value']
+            my_sensors[id_sensor].append(value)
+
+    return my_sensors
+```
+**code00** 
+```.py
+def get_sensors_datetime(ids:list[int]=[1]):
+    recordings = get_readings()
+    sensor_datetime = []
+    for rec in recordings:
+        id_sensor = rec['sensor_id']
+        if id_sensor in ids:
+            value = rec['datetime']
+            sensor_datetime.append(value)
+
+    return sensor_datetime
+```
+
+**code00** Shows code used for plotting graphs for remote humidity (sensors 1, 3, 5)
+```.py
+from matplotlib.gridspec import GridSpec
+import numpy as np
+from Quizzes.lib_api import get_sensors, smoothing, get_sensors_datetime
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+
+ids = [1, 3, 5]
+sensors = get_sensors(ids=ids)
+datetime_list = get_sensors_datetime(ids=[1])
+temp1 = sensors[1] + sensors[5]
+
+mean_values = []
+std_values = []
+x_values = datetime_list  # Use datetime_list as x-values
+
+temp = 0
+for i, j in zip(sensors[1], sensors[5]):
+    mean_values.append((i + j) / 2)
+    std_values.append(np.std([i, j]))
+
+min_values = np.minimum(sensors[1], sensors[5])
+max_values = np.maximum(sensors[1], sensors[5])
+
+fig = plt.figure(figsize=(10, 8))
+grid = GridSpec(3, 3, fig)
+plt.subplots_adjust(hspace=0.5)
+ax1 = fig.add_subplot(grid[0:3, 0:2])
+
+ax1.fill_between(x_values, min_values, max_values, color='lightblue', alpha=0.5, label='Range')
+ax1.plot(x_values, mean_values, 'r-', label='Mean, Median')
+ax1.plot(x_values, max_values, 'blue', label='Maximum')
+ax1.plot(x_values, min_values, 'yellow', label='Minimum')
+ax1.set_title('Analysis of sensors 1, 5')
+ax1.set_xlabel('Time')
+ax1.legend()
+plt.grid(True)
+
+ax1.xaxis.set_major_locator(mdates.AutoDateLocator())
+fig.autofmt_xdate()
+
+box2 = fig.add_subplot(grid[0, 2])
+box2.plot(sensors[1], color="blue", marker='o', linestyle='-', markersize=2,linewidth=0.5)
+box2.set_title("Sensor 1 (Humidity)")
+plt.grid(True)
+
+plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
+fig.autofmt_xdate()
+
+box3 = fig.add_subplot(grid[1, 2])
+box3.plot(sensors[3], color="green", marker='o', linestyle='-', markersize=2, linewidth=0.5)
+box3.set_title("Sensor 3 (Humidity)")
+plt.grid(True)
+
+plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
+fig.autofmt_xdate()
+
+box4 = fig.add_subplot(grid[2, 2])
+box4.plot(x_values, sensors[5], color="yellow", marker='o', linestyle='-', markersize=2, linewidth=0.5)
+box4.set_title("Sensor 5 (Humidity)")
+plt.grid(True)
+
+ax1.xaxis.set_major_locator(mdates.AutoDateLocator())
+plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
+fig.autofmt_xdate()
+
+plt.show()
+```
+
+**code00** Shows code used for plotting graphs for remote temperature (sensors 0, 2, 4)
+```.py
+from matplotlib.gridspec import GridSpec
+import numpy as np
+from Quizzes.lib_api import get_sensors, smoothing, get_sensors_datetime
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+
+ids = [0, 2, 4]
+sensors = get_sensors(ids=ids)
+datetime_list = get_sensors_datetime(ids=[2])
+temp1 = sensors[2] + sensors[4]
+
+mean_values = []
+std_values = []
+x_values = datetime_list  # Use datetime_list as x-values
+
+temp = 0
+for i, j in zip(sensors[2], sensors[4]):
+    mean_values.append((i + j) / 2)
+    std_values.append(np.std([i, j]))
+
+min_values = np.minimum(sensors[2], sensors[4])
+max_values = np.maximum(sensors[2], sensors[4])
+
+fig = plt.figure(figsize=(10, 8))
+grid = GridSpec(3, 3, fig)
+plt.subplots_adjust(hspace=0.5)
+ax1 = fig.add_subplot(grid[0:3, 0:2])
+
+ax1.fill_between(x_values, min_values, max_values, color='lightcoral', alpha=0.5, label='Range')
+ax1.plot(x_values, mean_values, 'r-', label='Mean, Median')
+ax1.plot(x_values, max_values, 'blue', label='Maximum')
+ax1.plot(x_values, min_values, 'yellow', label='Minimum')
+ax1.set_title('Analysis of sensors 2, 4')
+ax1.set_xlabel('Time')
+ax1.legend()
+plt.grid(True)
+
+ax1.xaxis.set_major_locator(mdates.AutoDateLocator())
+fig.autofmt_xdate()
+
+box2 = fig.add_subplot(grid[0, 2])
+box2.plot(sensors[0], color="blue", marker='o', linestyle='-', markersize=2,linewidth=2)
+box2.set_title("Sensor 0 (Temperature)")
+plt.grid(True)
+
+plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
+fig.autofmt_xdate()
+
+box3 = fig.add_subplot(grid[1, 2])
+box3.plot(sensors[2], color="green", marker='o', linestyle='-', markersize=2, linewidth=2)
+box3.set_title("Sensor 2 (Temperature)")
+plt.grid(True)
+
+plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
+fig.autofmt_xdate()
+
+box4 = fig.add_subplot(grid[2, 2])
+box4.plot(x_values, sensors[4], color="yellow", marker='o', linestyle='-', markersize=2, linewidth=2)
+box4.set_title("Sensor 4 (Temperature)")
+plt.grid(True)
+
+ax1.xaxis.set_major_locator(mdates.AutoDateLocator())
+plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
+fig.autofmt_xdate()
+
+plt.show()
+```
+In this code, I used Matplotlib and GridSpec to create a comprehensive visualization of sensor data. I first retrieve sensor readings using a custom library and calculate statistical values like mean and standard deviation. The main plot, spanning a large grid, illustrates the range, mean, and minimum and maximum of combined data from selected sensors. This is done using fill_between for range visualization and line plots for mean and extremes, providing a clear visual summary of sensor data over time. Additionally, I create smaller subplots for each sensor, plotting their individual readings in different colors and styles for detailed analysis. These subplots offer a focused view on each sensor's data. The x-axis across the plots is formatted to display time using mdates, makes client easier to visualise the data. Finally, I display the entire figure, showing both the overall datas and specific details of the sensors' readings in a unified layout.
+
+However, for remote humidity, it seems that sensor 3 is broken and not functioning properly. Therefore, I calculated range, mean, minimum, maximum and standard deviation of combined data from sensor 1,5 to make teh data more accurate and proper. This applies to remote temperature as well. For remote temperature, it seems that sensor 0 is broken and not functioning properly. Therefore, I calculated range, mean, minimum, maximum and standard deviation of combined data from sensor 2,4 to make teh data more accurate and proper.
+
+**fig00** Shows the graph of sensors1,3,5 (humidity) and the analysis of sensors 1,5. This includes range, mean, minimum, maximum of combined data from selected sensors.
+<img width="max" alt="Screenshot 2023-12-12 at 11 45 32 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/daf70e3b-d88f-40ff-84c5-e41cee7ade94">
+
+**fig00** Shows the graph of sensors1,3,5 (humidity) and the standard deviation of combined data from selected sensors.
+<img width="max" alt="Screenshot 2023-12-12 at 11 47 15 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/6d298be1-ca3c-47d3-82b6-030a716e1724">
+
+**fig00** Shows the graph of sensors0,2,4 (temperature) and the analysis of sensors 2,4. This includes range, mean, minimum, maximumof combined data from selected sensors.
+<img width="max" alt="Screenshot 2023-12-12 at 11 45 58 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/b2818635-fca8-4832-aff3-dd5d1b7fb1be">
+
+**fig00** Shows the graph of sensors0,2,4 (temperature) and the standard deviation of combined data from selected sensors.
+<img width="max" alt="Screenshot 2023-12-12 at 11 47 45 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/8b1fccef-3c46-4771-bd78-ea5e526f2f17">
+
+
+
 
 # Criteria D: Functionality
 A 7 min video demonstrating the proposed solution with narration
