@@ -12,7 +12,7 @@ Considering the budgetary constrains of the client and the hardware requirements
 
 **Design statement**
 
-``` Fill out here```
+Our team will create a device and program that will calculate both humiditiy and temperature in a room of John's house. To do this, we will use a Raspberry Pi 4 and four DHT_11 sensors to collect the humidity and temperature. The program will upload the collected data onto a server in real-time to reinforce the reliability and validity of our calculated data. We will use the device to record the humidity and temperature inside of a room for 48 hours, and some spots on campus will be able to access the data through an online server anytime using a granted access token. Further, John can use the data collected to compare to local data information on optimal humidity and temperature. This project will take approximately 4 weeks and will be evaluated according to the criteria set above.
 
 ## Success Criteria
 
