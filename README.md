@@ -34,10 +34,20 @@ Our team will create a device and program that will calculate both humiditiy and
 
 _TOK Connection: To what extent does ```the use of data science``` in climate research influence our understanding of environmental issues, and what knowledge questions arise regarding the ```reliability, interpretation, and ethical implications``` of data-driven approaches in addressing climate change_
 
-1. How does our use of technology shape our understanding of the environment
-2. What responsibilities do we have as technologists when it comes to handling personal data related to our living spaces?
-3. What cultural and contextual factors might impact our interpretation of the results, especially when comparing our local readings with those from the campus? 
+The use of data science in climate research has a impact on our understanding of environmental issues. By handling large datasets and advanced computer techniques, data science enables us to identify problems, make predictions, and understand the complex interactions within our environment. This leads us to more sensitive decision-making and policy development.
 
+1. How does our use of technology shape our understanding of the environment?
+   Our use of technology, particularly in data collection and analysis, shapes our understanding of the environment by providing detailed informations that were previously npt able to have connections with. Technologies like remote sensing, Senosor devices, and advanced computer models allow 
+   us to monitor environmental changes in real-time, predict future scenarios, and assess the effectiveness of intervention strategies. 
+  
+2. What responsibilities do we have as technologists when it comes to handling personal data related to our living spaces?
+   As technologists, we have a responsibility to handle personal data with care, especially when it comes to living spaces such as this John's case. This involves ensuring data privacy, securing data against unauthorized access, and being transparent about how the data is used to clients. 
+   These ethical considerations include respecting individual privacy, making sure to informimg consent, and considering the impact of data collection on communities. These challenges in balancing the need for comprehensive environmental data with the right to personal privacy.
+
+3. What cultural and contextual factors might impact our interpretation of the results, especially when comparing our local readings with those from the campus? 
+   Interpreting environmental data requires an understanding of cultural and contextual factors, especially when comparing data from different locations, like local readings and remote servor on a campus. Cultural perceptions of climate change and local environmental factors can influence how 
+   data is interpreted and used. For instance, data rising temperatures may be perceived differently in a places that traditionally experiences hotter climates compared to one that does not.
+   
 # Criteria B: Design
 
 ## Flow diagram
@@ -128,7 +138,7 @@ This flow diagram shows the function called get_sensor.By using request library,
 ## Development
 
 
-## 1. The client wants The solution that provides a visual representation of the Humidity and Temperature values inside a dormitory (Local) and outside the house (Remote) for a period of minimum 48 hours.
+# 1. The client wants The solution that provides a visual representation of the Humidity and Temperature values inside a dormitory (Local) and outside the house (Remote) for a period of minimum 48 hours.
 
 We fulfilled this success criteria 1 by:
 
@@ -471,7 +481,7 @@ def get_sensors(ids:list[int]=[1]):
     return my_sensors
 ```
 
-get_sensors　：In get_sensors, I used sensor readings for specified IDs. I initialize a dictionary to store readings for each ID and then identify through all recordings, adding the values to the corresponding lists in the dictionary if the sensor ID matches. This function organizes sensor data by ID, making it easy to access and analyze specific sensor readings.
+get_sensors :In get_sensors, I used sensor readings for specified IDs. I initialize a dictionary to store readings for each ID and then identify through all recordings, adding the values to the corresponding lists in the dictionary if the sensor ID matches. This function organizes sensor data by ID, making it easy to access and analyze specific sensor readings.
 
 **code00** 
 ```.py
@@ -644,8 +654,18 @@ This applies to remote temperature as well. For remote temperature, it seems tha
 **fig10** Shows the graph of sensors0,2,4 (temperature) and the standard deviation of combined data from selected sensors.
 <img width="max" alt="Screenshot 2023-12-12 at 11 47 45 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/8b1fccef-3c46-4771-bd78-ea5e526f2f17">
 
+# 2. The client requested that the local variables will be measured using a set of 4 sensors around the dormitory.
+ayane onegaishimasu
 
+# 3,6. The solution provides a mathematical modelling for the Humidity and Temperature levels for each Local and Remote locations. (linear model and non-lineal model), The solution provides a prediction for the subsequent 12 hours for both temperature and humidity.
 
+# 4. The solution provides a comparative analysis for the Humidity and Temperature levels for each Local and Remote locations including mean, standad deviation, minimum, maximum, and median.
+
+# 5. The Local samples are stored in a csv file and posted to the remote server as a backup.
+ayne onegaishimasu
+
+# 7. The solution includes a poster summarizing the visual representations, model and analysis created. The poster includes a recommendation about healthy levels for Temperature and Humidity.
+akirame
 
 # Criteria D: Functionality
 A 7 min video demonstrating the proposed solution with narration
