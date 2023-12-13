@@ -37,14 +37,17 @@ _TOK Connection: To what extent does ```the use of data science``` in climate re
 The use of data science in climate research has a impact on our understanding of environmental issues. By handling large datasets and advanced computer techniques, data science enables us to identify problems, make predictions, and understand the complex interactions within our environment. This leads us to more sensitive decision-making and policy development.
 
 1. How does our use of technology shape our understanding of the environment?
+ 
    Our use of technology, particularly in data collection and analysis, shapes our understanding of the environment by providing detailed informations that were previously npt able to have connections with. Technologies like remote sensing, Senosor devices, and advanced computer models allow 
    us to monitor environmental changes in real-time, predict future scenarios, and assess the effectiveness of intervention strategies. 
   
 2. What responsibilities do we have as technologists when it comes to handling personal data related to our living spaces?
+
    As technologists, we have a responsibility to handle personal data with care, especially when it comes to living spaces such as this John's case. This involves ensuring data privacy, securing data against unauthorized access, and being transparent about how the data is used to clients. 
    These ethical considerations include respecting individual privacy, making sure to informimg consent, and considering the impact of data collection on communities. These challenges in balancing the need for comprehensive environmental data with the right to personal privacy.
 
-3. What cultural and contextual factors might impact our interpretation of the results, especially when comparing our local readings with those from the campus? 
+3. What cultural and contextual factors might impact our interpretation of the results, especially when comparing our local readings with those from the campus?
+   
    Interpreting environmental data requires an understanding of cultural and contextual factors, especially when comparing data from different locations, like local readings and remote servor on a campus. Cultural perceptions of climate change and local environmental factors can influence how 
    data is interpreted and used. For instance, data rising temperatures may be perceived differently in a places that traditionally experiences hotter climates compared to one that does not.
    
