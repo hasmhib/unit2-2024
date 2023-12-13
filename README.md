@@ -289,14 +289,14 @@ First, I needed to separate the columns of my CSV files and create columns. By r
 
 The CSV file contains data in a comma-separated format. Each line in the file represents a record with different data points. 
 
-**fig4** This picture shows how is the value reorganized in formatted_data.csv.
+**fig1** This picture shows how is the value reorganized in formatted_data.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
 This line consists of a date, a time, humidity of sensor1, temperature of sensor1, humidity of sensor2, temperature of sensor2, humidity of sensor3 and temperature of sensor3,  each separated by a comma.
 
 After loading the data, the DataFrame has default of column headers (0, 1, 2, ...). To make the data easier to work with, I assigned names to each column to makes other developers easy to understand when they see my code. 
 I did this by setting the data.columns attribute.
 
-**code7** Shows the part of the program to assigning column names
+**code1** Shows the part of the program to assigning column names
 ```.py
 data.columns = ['Date', 'Time', 'Room Humidity 1', 'Room Temperature 1',
                 'Room Humidity 2', 'Room Temperature 2', 'Room Humidity 3', 'Room Temperature 3'
@@ -309,7 +309,7 @@ By renaming the columns and separating it, I made the DataFrame more understanda
 
 After separating the columns, I plot the graphs for the local humidity and temperature data recorded during 48 hours.
 
-**code8** Shows code used for plotting graphs for humidity data recorded during 48 hours.
+**code2** Shows code used for plotting graphs for humidity data recorded during 48 hours.
 ```.py
 data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
 
@@ -336,7 +336,7 @@ plt.gcf().autofmt_xdate()
 plt.show()
 ```
 
-***code9** Shows code used for plotting graphs for temperature data recorded during 48 hours.
+***code3** Shows code used for plotting graphs for temperature data recorded during 48 hours.
 ```.py
 data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
 
@@ -366,14 +366,14 @@ On the frist row of the code, I am connecting the 'Date' and 'Time' columns of t
 
 In this code, I'm creating a detailed line graph to visualize room temperature data over time using Matplotlib in Python. I set the figure size and plot three humidity and temperature datasets, each representing different room humidity and temperatures, with different colors. The y-axis limits are adjusted to show the entire range of humidity and temperature data. To make a graph more easier to visualize, I add labels, a title, a legend, and a grid. The x-axis dates are formatted to display both the date and time, and I use auto-formatting features to ensure these labels are clear and non-overlapping. This approach allows me to effectively present a visual comparison of humidity and temperature changes over time in different rooms.
 
-**fig5** Shows the raw graph of humidity data recorded during 48 hours by using **code10**
+**fig2** Shows the raw graph of humidity data recorded during 48 hours by using **code10**
 <img width="max" alt="Screenshot 2023-12-12 at 11 30 57 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/135507c4-9b9f-4539-9b7b-d2317d5ba44b">
 
-**fig6** Shows the raw graph of temperature data recorded during 48 hours by using **code11**
+**fig3** Shows the raw graph of temperature data recorded during 48 hours by using **code11**
 <img width="max" alt="Screenshot 2023-12-12 at 11 31 56 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/b943561e-3fb2-40af-a152-367dd1994482">
 
 ## Smoothing these raw graphs to visualize the data easily
-**code10** show the code to make a smooth graph
+**code4** show the code to make a smooth graph
 ```.py
 def smoothing(values:[], size_window:int=5):
     smoothed_values = []
@@ -385,17 +385,17 @@ def smoothing(values:[], size_window:int=5):
 ```
 The clients wants easy visualization, as may difficult for them only the raw graph. Therefore, in this code, I define a function named smoothing to apply a simple moving average smoothing technique to a list of values so that the clients can visualize more easily. The function takes two parameters, a list of values and size_window parameter with a default value of 5. I used through the list in steps of size_window, calculating the mean of each window of values. I sum the values in the current window and divide by the window size to get the average. I then store a tuple containing the window's starting index and the calculated mean in smoothed_values. This results in a list of tuples, each has the average value of a segment of the list.
 
-**fig7** Shows the smoothed version of humidity data recorded during 48 hours
+**fig4** Shows the smoothed version of humidity data recorded during 48 hours
 <img width="max" alt="Screenshot 2023-12-13 at 7 06 02 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/e0449b70-1f02-4908-b5c1-974bf28bd61e">
 
-**fig8** Shows Shows the smoothed version of temperature data recorded during 48 hours
+**fig5** Shows Shows the smoothed version of temperature data recorded during 48 hours
 <img width="max" alt="Screenshot 2023-12-13 at 7 08 36 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/250200be-6be4-4945-bc34-15bf555f10b3">
 
 ## Plot graphs of remote humidity and temperature
 
 The client wants the visual representation of the Humidity and Temperature values outside the house (Remote) for a period of minimum 48 hours as well. Therefore, I created a graph with the data from remote humidity and temperature. Firdstly, I needed to get a data from each sensors, and I also needed to track when each sensor reading was taken. This is done by using functions get_sensors and get_sensors_datetime. After this, I used Matplotlib and GridSpec to create a comprehensive visualization of sensor data.
 
-**code11** shows the code to get the data from specific sensor.
+**code5** shows the code to get the data from specific sensor.
 ```.py
 def get_sensors(ids:list[int]=[1]):
     recordings = get_readings()
@@ -413,7 +413,7 @@ def get_sensors(ids:list[int]=[1]):
 
 get_sensors :In get_sensors, I used sensor readings for specified IDs. I initialize a dictionary to store readings for each ID and then identify through all recordings, adding the values to the corresponding lists in the dictionary if the sensor ID matches. This function organizes sensor data by ID, making it easy to access and analyze specific sensor readings.
 
-**code12** shows the codes to get data with specific time points.
+**code6** shows the codes to get data with specific time points.
 ```.py
 def get_sensors_datetime(ids:list[int]=[1]):
     recordings = get_readings()
@@ -428,7 +428,7 @@ def get_sensors_datetime(ids:list[int]=[1]):
 ```
 get_sensors_datetime : I follow a similar approach but I focus on extracting datetime information. I create a list and append the datetime of each relevant recording, allowing me to track each sensor reading taken. This is used for time series analysis or when I need to use sensor readings with specific time points. 
 
-**code13** Shows code used for plotting graphs for remote humidity (sensors 1, 3, 5)
+**code7** Shows code used for plotting graphs for remote humidity (sensors 1, 3, 5)
 ```.py
 from matplotlib.gridspec import GridSpec
 import numpy as np
@@ -498,7 +498,7 @@ fig.autofmt_xdate()
 plt.show()
 ```
 
-**code14** Shows code used for plotting graphs for remote temperature (sensors 0, 2, 4)
+**code8** Shows code used for plotting graphs for remote temperature (sensors 0, 2, 4)
 ```.py
 from matplotlib.gridspec import GridSpec
 import numpy as np
@@ -572,16 +572,16 @@ In this code, I used Matplotlib and GridSpec to create a comprehensive visualiza
 However, for remote humidity, it seems that sensor 3 is broken and not functioning properly. Therefore, I calculated range, mean, minimum, maximum and standard deviation of combined data from sensor 1,5 to make teh data more accurate and proper. 
 This applies to remote temperature as well. For remote temperature, it seems that sensor 0 is broken and not functioning properly. Therefore, I calculated range, mean, minimum, maximum and standard deviation of combined data from sensor 2,4 to make teh data more accurate and proper.
 
-**fig9** Shows the graph of sensors1,3,5 (humidity) and the analysis of sensors 1,5. This includes range, mean, minimum, maximum of combined data from selected sensors.
+**fig6** Shows the graph of sensors1,3,5 (humidity) and the analysis of sensors 1,5. This includes range, mean, minimum, maximum of combined data from selected sensors.
 <img width="max" alt="Screenshot 2023-12-12 at 11 45 32 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/daf70e3b-d88f-40ff-84c5-e41cee7ade94">
 
-**fig10** Shows the graph of sensors1,3,5 (humidity) and the standard deviation of combined data from selected sensors.
+**fig7** Shows the graph of sensors1,3,5 (humidity) and the standard deviation of combined data from selected sensors.
 <img width="max" alt="Screenshot 2023-12-12 at 11 47 15 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/6d298be1-ca3c-47d3-82b6-030a716e1724">
 
-**fig11** Shows the graph of sensors0,2,4 (temperature) and the analysis of sensors 2,4. This includes range, mean, minimum, maximumof combined data from selected sensors.
+**fig8** Shows the graph of sensors0,2,4 (temperature) and the analysis of sensors 2,4. This includes range, mean, minimum, maximumof combined data from selected sensors.
 <img width="max" alt="Screenshot 2023-12-12 at 11 45 58 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/b2818635-fca8-4832-aff3-dd5d1b7fb1be">
 
-**fig12** Shows the graph of sensors0,2,4 (temperature) and the standard deviation of combined data from selected sensors.
+**fig9** Shows the graph of sensors0,2,4 (temperature) and the standard deviation of combined data from selected sensors.
 <img width="max" alt="Screenshot 2023-12-12 at 11 47 45 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/8b1fccef-3c46-4771-bd78-ea5e526f2f17">
 
 # 2. The client requested that the local variables will be measured using a set of 3 sensors around the dormitory.
