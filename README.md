@@ -608,6 +608,20 @@ def read_arduino():
 
 **code2** The code shows how I set the interval to record the data every 5 min for 48 hours.
 ```.py
+
+
+```
+# 3,6. The solution provides a mathematical modelling for the Humidity and Temperature levels for each Local and Remote locations. (linear model and non-lineal model), The solution provides a prediction for the subsequent 12 hours for both temperature and humidity.
+
+# 4. The solution provides a comparative analysis for the Humidity and Temperature levels for each Local and Remote locations including mean, standad deviation, minimum, maximum, and median.
+
+# 5. The Local samples are stored in a csv file and posted to the remote server as a backup.
+
+To fulfill success criteria 5, I developed a system for data backup and remote transfer. First, I collected data using Arduino sensors, saving it every five minutes to a local CSV file over a 48-hour period. I then reorganized this data for clarity and extracted important information into a new CSV file. Finally, using a send_data function, I transmitted this data to a remote server, ensuring a reliable backup. This process ensured not only the local storage of data but also its safe transfer to a remote server, meeting the criteria for data backup and redundancy.
+
+**code1** The code shows how I send the data to csv file. 
+
+```.py
 def save_csv(data, file_name="reading.csv"):
     d1, d2, d3 = data
     print("Raw data:", d1, d2, d3)  # Add this line to print the raw data
@@ -624,30 +638,6 @@ def save_csv(data, file_name="reading.csv"):
             humidity3, temperature3 = d3.split(',')
             f.write(f"Sensor 3: Humidity: {humidity3} Temperature: {temperature3}\n\n")
 ```
-# 3,6. The solution provides a mathematical modelling for the Humidity and Temperature levels for each Local and Remote locations. (linear model and non-lineal model), The solution provides a prediction for the subsequent 12 hours for both temperature and humidity.
-
-# 4. The solution provides a comparative analysis for the Humidity and Temperature levels for each Local and Remote locations including mean, standad deviation, minimum, maximum, and median.
-
-# 5. The Local samples are stored in a csv file and posted to the remote server as a backup.
-
-To fulfill success criteria 5, I developed a system for data backup and remote transfer. First, I collected data using Arduino sensors, saving it every five minutes to a local CSV file over a 48-hour period. I then reorganized this data for clarity and extracted important information into a new CSV file. Finally, using a send_data function, I transmitted this data to a remote server, ensuring a reliable backup. This process ensured not only the local storage of data but also its safe transfer to a remote server, meeting the criteria for data backup and redundancy.
-
-**code1** The code shows how I send the data to csv file. 
-
-```.py
-def main():
-    start_time = datetime.now()
-    total_duration = timedelta(hours=48)  # Total duration for data collection
-
-    while datetime.now() - start_time < total_duration:
-        # Collect data for 5 minutes
-        end_time = datetime.now() + timedelta(minutes=5)
-        while datetime.now() < end_time:
-            d1, d2, d3 = read_arduino()
-            save_csv((d1, d2, d3))
-            sleep(300)  # Sleep for 10 seconds between readings
-
-    print("Data collection complete.")
 ```
 **fig1** This picture shows how is data seved to reading.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
