@@ -138,7 +138,9 @@ Code 2: Creating a read_arduino function to collect data from the Arduino sensor
 
 Code 3 and 4: Designing a system that captures sensor data over a period of 48 hours and stores it in a CSV file using the save_csv_data function, which can be used to create a visual representation of the data.
 
-Code 5: Processing the raw sensor data for clarity and organization using the process_data function and then creating a list of the data points with the make_list function, making the data ready for analysis or visualization.
+Code 5: Setting the time of collecting the data using the main function, which can be used to set the interval and length.
+
+Code 6: Processing the raw sensor data for clarity and organization using the process_data function and then creating a list of the data points with the make_list function, making the data ready for analysis or visualization.
 
 Code 6: Finalizing the process by sending the organized data to a server with the send_data function, which could then be used for monitoring or visualizing temperature and humidity data in a meaningful way.
 
@@ -204,7 +206,7 @@ create_new_sensor("Ayane_no_h3","Humidity","R2-10","%")
 I defined a function named read_arduino to retrieve data from an Arduino device. This function utilizes the Serial library, providing the capability to distinguish and collect data from the Arduino. It requires parameters such as the port, which signifies the Arduino's name, baudrate, representing the communication speed, and timeout, specifying the duration for connection timeout. Three variables, namely d1, d2, and d3, are initialized as empty strings. However, as nothing is appended to them within the while loop, the loop persists indefinitely. Inside the loop, the readline method is invoked on the Arduino data. Notably, each sensor's data (d1, d2, and d3) should be received in succession, yet the current implementation reads the same data for each sensor in a loop. Furthermore, the code attempts to decode the binary data into a Unicode string using the UTF-8 encoding. UTF-8 is chosen for its ability to represent every character in the Unicode character set. It's worth noting that the code might have some logical issues, as the while loop conditions are not effectively checking the length of the data, and the variables d1, d2, and d3 are assigned the same decoded data.
 
 
-**code3** The code above shows how to read data from arduino.
+**code3** The code shows how to read data from arduino.
 ```.py
 def read_arduino():
     arduino = serial.Serial(port="/dev/cu.usbserial-10", baudrate=9600, timeout=0.1)
@@ -221,7 +223,7 @@ def read_arduino():
     return d1, d2, d3
 ```
 
-**code4** The code above shows how I set the interval to record the data every 5 min for 48 hours.
+**code4** The code shows how I set the interval to record the data every 5 min for 48 hours.
 ```.py
 def save_csv(data, file_name="reading.csv"):
     d1, d2, d3 = data
@@ -240,7 +242,7 @@ def save_csv(data, file_name="reading.csv"):
             f.write(f"Sensor 3: Humidity: {humidity3} Temperature: {temperature3}\n\n")
 ```
 
-**code5** The code above shows how I send the data to csv file. 
+**code5** The code shows how I send the data to csv file. 
 
 ```.py
 def main():
@@ -260,7 +262,7 @@ def main():
 **fig1** This picture shows how is data seved to reading.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
 
-**code5** The codes above show how to reorganize the data in reading.csv and make a list from the new csv file.
+**code6** The codes show how to reorganize the data in reading.csv and make a list from the new csv file.
 ```.py
 def process_data():
     output=[]
@@ -318,7 +320,7 @@ def make_list():
 **fig3** This picture shows the result of the function, make_list.
 <img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
 
-**code6** The code above shows how to send data to the surver and receive what user sent to it.
+**code7** The code above shows how to send data to the surver and receive what user sent to it.
 ```.py
 def send_data(value:list,date:list,sensor_id):
     for x in range(len(value)):
