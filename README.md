@@ -139,27 +139,7 @@ This flow diagram shows the function called get_sensor.By using request library,
 
 
 ## Development
-
-
-# 1. The client wants The solution that provides a visual representation of the Humidity and Temperature values inside a dormitory (Local) and outside the house (Remote) for a period of minimum 48 hours.
-
-We fulfilled this success criteria 1 by:
-
-Code 1: Implementing a login function for secure API authentication and a create_new_sensor function to register new temperature and humidity sensors in a dormitory (local) and outside the house (remote).
-
-Code 2: Creating a read_arduino function to collect data from the Arduino sensors. Although it needs refinement to avoid reading data in an infinite loop, it's designed to differentiate between the sensors' data.
-
-Code 3 and 4: Designing a system that captures sensor data over a period of 48 hours and stores it in a CSV file using the save_csv_data function, which can be used to create a visual representation of the data.
-
-Code 5: Setting the time of collecting the data using the main function, which can be used to set the interval and length.
-
-Code 6: Processing the raw sensor data for clarity and organization using the process_data function and then creating a list of the data points with the make_list function, making the data ready for analysis or visualization.
-
-Code 6: Finalizing the process by sending the organized data to a server with the send_data function, which could then be used for monitoring or visualizing temperature and humidity data in a meaningful way.
-
-Fig 4,5,6,7: These visualizations offer a detailed and clear representation of both humidity and temperature over a specified period, satisfying the criteria of visual representation.
-The code includes comments, labels, legends, and titles that make the graphs informative and accessible to the client.
-
+# Data storing
 ## login and create a new sensor
 
 I defined a function called login that facilitates user authentication to a web service. The function takes no arguments and is responsible for generating and returning an authorization token required for subsequent secured interactions with the service. Inside the function, a dictionary user is created with a predefined username and password. The requests.post method is then utilized to send a POST request to the specified URL ('http://192.168.6.153/login') with the user credentials provided as json data. The response from the server is parsed as json, and the access token, a crucial element for authorization, is extracted. Finally, the function constructs and returns a dictionary with an "Authorization" key, incorporating the obtained access token using the Bearer token authentication scheme. This token can be subsequently used in the headers of other HTTP requests to access secured endpoints on the web service.
@@ -330,29 +310,11 @@ def make_list():
 **fig3** This picture shows the result of the function, make_list.
 <img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
 
-**code7** The code above shows how to send data to the surver and receive what user sent to it.
-```.py
-def send_data(value:list,date:list,sensor_id):
-    for x in range(len(value)):
-        header = login()
-        new_records = {"datetime":date[x], "sensor_id": sensor_id, "value" : value[x]}
-        # Send an HTTP POST request to a specified URL with the new_record data and headers
-        r = requests.post('http://192.168.6.153/reading/new', json=new_records, headers=header)
-        out = r.json()
-        print("Response Content:",out)
 
-date,h1,t1,h2,t2,h3,t3 = make_list()
 
-send_data(h1,date, 71)
-send_data(h2,date,72)
-send_data(h3,date, 73)
-send_data(t1,date,68)
-send_data(t2,date, 69)
-send_data(t3,date,70)
-```
+# 1. The client wants The solution that provides a visual representation of the Humidity and Temperature values inside a dormitory (Local) and outside the house (Remote) for a period of minimum 48 hours.
 
-**fig4** This picture shows the reslut of the send_data function and proof that I could send data to the server.
-<img width="max" alt="Screenshot 2023-12-09 at 11 58 04" src="https://github.com/hasmhib/unit2-2024/assets/142702159/aeb02410-2a0f-42d6-a239-7ce4014e3ff3">
+We fulfilled success criteria 1 by developing a system to collect and visualize humidity and temperature data both locally and remotely over 48 hours. For visualization, I created line graphs with Matplotlib, presenting clear informations in environmental conditions. This was enhanced with a smoothing function to make clients easier to read. Despite some sensor issues, the adapted graphs effectively provided a comprehensive analysis of the conditions, meeting the criteria of delivering visual representations of the data over the required duration.
 
 
 # Plotting the graphs for local and remote humidity and temperature
@@ -630,7 +592,7 @@ plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
 fig.autofmt_xdate()
 
 box4 = fig.add_subplot(grid[2, 2])
-box4.plot(x_values, sensors[4], color="yellow", marker='o', linestyle='-', markersize=2, linewidth=2)
+box4.plot(x_values, sensors[4], color="yellow", marker='o', linestyle='-', markersize=2, linewidth=2)We fulf
 box4.set_title("Sensor 4 (Temperature)")
 plt.grid(True)
 
@@ -665,7 +627,112 @@ ayane onegaishimasu
 # 4. The solution provides a comparative analysis for the Humidity and Temperature levels for each Local and Remote locations including mean, standad deviation, minimum, maximum, and median.
 
 # 5. The Local samples are stored in a csv file and posted to the remote server as a backup.
-ayne onegaishimasu
+
+To fulfill success criteria 5, I developed a system for data backup and remote transfer. First, I collected data using Arduino sensors, saving it every five minutes to a local CSV file over a 48-hour period. I then reorganized this data for clarity and extracted important information into a new CSV file. Finally, using a send_data function, I transmitted this data to a remote server, ensuring a reliable backup. This process ensured not only the local storage of data but also its safe transfer to a remote server, meeting the criteria for data backup and redundancy.
+
+**code5** The code shows how I send the data to csv file. 
+
+```.py
+def main():
+    start_time = datetime.now()
+    total_duration = timedelta(hours=48)  # Total duration for data collection
+
+    while datetime.now() - start_time < total_duration:
+        # Collect data for 5 minutes
+        end_time = datetime.now() + timedelta(minutes=5)
+        while datetime.now() < end_time:
+            d1, d2, d3 = read_arduino()
+            save_csv((d1, d2, d3))
+            sleep(300)  # Sleep for 10 seconds between readings
+
+    print("Data collection complete.")
+```
+**fig1** This picture shows how is data seved to reading.csv.
+<img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
+
+**code6** The codes show how to reorganize the data in reading.csv and make a list from the new csv file.
+```.py
+def process_data():
+    output=[]
+    with open('reading.csv', 'r') as file:
+        lines = file.readlines()
+        for i in range(0,len(lines)-8,8):
+            temp = lines[i:i+8]
+            temp2 = []
+            for text in temp:
+                if text != "\n":
+                    temp4=text[0:len(text)-1].strip(",").strip(" ")
+                    temp2.append(temp4)
+            temp2[0]=temp2[0][0:10]+","+temp2[0][11:]
+            temp2[1]=temp2[1][:6]+temp2[1][7:]
+            temp2[2] = temp2[2][:6] + temp2[2][7:]
+            temp2[3] = temp2[3][:6] + temp2[3][7:]
+            output.append(",".join(temp2))
+    # Write the result back to a new file
+    with open('formatted_data.csv', 'w') as output_file:
+        output_file.write("\n".join(output))
+
+def make_list():
+    with (open("formatted_data.csv", "r") as file):
+        lines = file.readlines()
+        date = []
+        t1 = []
+        h1 = []
+        t2 = []
+        h2 = []
+        t3 = []
+        h3 = []
+        for text in lines:
+            lists = text.split(",")
+            if len(lists) >= 7:
+                date.append(lists[0])
+                h1.append(float(lists[1]))
+                t1.append(float(lists[2]))
+                h2.append(float(lists[3]))
+                t2.append(float(lists[4]))
+                h3.append(float(lists[5]))
+                t3.append(float(lists[6]))
+        print(date)
+        print(h2)
+        print(h3)
+        print(t1)
+        print(t2)
+        print(t3)
+    return date,h1,t1,h2,t2,h3,t3
+
+
+```
+**fig2** This picture shows how is the value reorganized in formatted_data.csv.
+<img width="max" alt="Screenshot 2023-12-09 at 13 18 32" src="https://github.com/hasmhib/unit2-2024/assets/142702159/11a08261-0173-41a4-8004-8821f78318b9">
+
+**fig3** This picture shows the result of the function, make_list.
+<img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
+
+**code7** The code above shows how to send data to the surver and receive what user sent to it.
+```.py
+def send_data(value:list,date:list,sensor_id):
+    for x in range(len(value)):
+        header = login()
+        new_records = {"datetime":date[x], "sensor_id": sensor_id, "value" : value[x]}
+        # Send an HTTP POST request to a specified URL with the new_record data and headers
+        r = requests.post('http://192.168.6.153/reading/new', json=new_records, headers=header)
+        out = r.json()
+        print("Response Content:",out)
+
+date,h1,t1,h2,t2,h3,t3 = make_list()
+
+send_data(h1,date, 71)
+send_data(h2,date,72)
+send_data(h3,date, 73)
+send_data(t1,date,68)
+send_data(t2,date, 69)
+send_data(t3,date,70)
+```
+
+**fig4** This picture shows the reslut of the send_data function and proof that I could send data to the server.
+<img width="max" alt="Screenshot 2023-12-09 at 11 58 04" src="https://github.com/hasmhib/unit2-2024/assets/142702159/aeb02410-2a0f-42d6-a239-7ce4014e3ff3">
+
+
 
 # 7. The solution includes a poster summarizing the visual representations, model and analysis created. The poster includes a recommendation about healthy levels for Temperature and Humidity.
 akirame
