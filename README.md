@@ -72,6 +72,8 @@ This functioin makes it available to post the data with new id.
 
 This flow diagram shows the function called get_sensor.By using request library, get data from API and arrange them as json file. Only pick the value with the specific sensor_id, and add to the list. The list is for drawing graph.
 
+ayane onegashimasu
+
 ## System Diagram
 
 ![HL](https://github.com/comsci-uwc-isak/unit2_2023/assets/53995212/4891d5e9-b8ab-46ed-bd75-b606e25e3383)
@@ -95,6 +97,7 @@ This flow diagram shows the function called get_sensor.By using request library,
 |11| draw the flow diagram | make it claery how to organize the code | 1 hour | December 3 | C  | 
 |12| draw graphs of each sensor| See the change of value specificly | 3 hour | December 4 | C  | 
 |13| draw smooth graphs of each sensor | See the cange of the value simply | 2 hour | December 5 | C  | 
+ayane onegaishimasu
 
 
 
