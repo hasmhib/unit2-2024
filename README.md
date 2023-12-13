@@ -42,7 +42,8 @@ _TOK Connection: To what extent does ```the use of data science``` in climate re
 
 ## Flow diagram
 
-<img width="421" alt="Screenshot 2023-12-05 at 11 42 08" src="https://github.com/hasmhib/unit2-2024/assets/142702159/b39c437f-54b5-4b89-9af8-2c546a712e28">
+
+<img width="436" alt="Screenshot 2023-12-12 at 17 52 19" src="https://github.com/hasmhib/unit2-2024/assets/142702159/40d01f12-8573-425e-9361-bd0272ee90e9">
 
 **fig1** flow diagram of the function, create_new_sensor
 
@@ -50,7 +51,8 @@ This flow diagram shows the function called create_new sensor. This function is 
 This functioin makes it available to post the data with new id.
 
 
-<img width="433" alt="Screenshot 2023-12-07 at 21 12 59" src="https://github.com/hasmhib/unit2-2024/assets/142702159/87752997-7f81-415d-8c37-d2727ceef3a8">
+
+<img width="508" alt="Screenshot 2023-12-12 at 17 40 26" src="https://github.com/hasmhib/unit2-2024/assets/142702159/efae5279-ec76-474c-9c53-215ba8ae7bc1">
 
 
 **fig2** flow diagram of the function, get_sensor.
