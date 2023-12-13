@@ -194,45 +194,7 @@ create_new_sensor("Ayane_no_h3","Humidity","R2-10","%")
 # {"type": "Humidity","owner_id": 5,"unit": "%","location": "R2-10","name": "Ayane_no_h3","id": 73}
 ```
 
-## get data from arduino
-I defined a function named read_arduino to retrieve data from an Arduino device. This function utilizes the Serial library, providing the capability to distinguish and collect data from the Arduino. It requires parameters such as the port, which signifies the Arduino's name, baudrate, representing the communication speed, and timeout, specifying the duration for connection timeout. Three variables, namely d1, d2, and d3, are initialized as empty strings. However, as nothing is appended to them within the while loop, the loop persists indefinitely. Inside the loop, the readline method is invoked on the Arduino data. Notably, each sensor's data (d1, d2, and d3) should be received in succession, yet the current implementation reads the same data for each sensor in a loop. Furthermore, the code attempts to decode the binary data into a Unicode string using the UTF-8 encoding. UTF-8 is chosen for its ability to represent every character in the Unicode character set. It's worth noting that the code might have some logical issues, as the while loop conditions are not effectively checking the length of the data, and the variables d1, d2, and d3 are assigned the same decoded data.
 
-
-**code3** The code shows how to read data from arduino.
-```.py
-def read_arduino():
-    arduino = serial.Serial(port="/dev/cu.usbserial-10", baudrate=9600, timeout=0.1)
-    d1,d2,d3 = "","",""
-    while len(d1< 1):
-        data = arduino.readline()
-    while len(d2 < 1):
-        data = arduino.readline()
-    while len(d3 < 1):
-        data = arduino.readline()
-    d1 = data.decode("utf-8")
-    d2 = data.decode("utf-8")
-    d3 = data.decode("utf-8")
-    return d1, d2, d3
-```
-
-**code4** The code shows how I set the interval to record the data every 5 min for 48 hours.
-```.py
-def save_csv(data, file_name="reading.csv"):
-    d1, d2, d3 = data
-    print("Raw data:", d1, d2, d3)  # Add this line to print the raw data
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    with open(file_name, "a") as f:
-        f. write(f"{timestamp},\n")
-        if ',' in d1:
-            humidity1, temperature1 = d1.split(',')
-            f.write(f"Sensor 1: Humidity: {humidity1} Temperature: {temperature1}\n")
-        if ',' in d2:
-            humidity2, temperature2 = d2.split(',')
-            f.write(f"Sensor 2: Humidity: {humidity2} Temperature: {temperature2}\n")
-        if ',' in d3:
-            humidity3, temperature3 = d3.split(',')
-            f.write(f"Sensor 3: Humidity: {humidity3} Temperature: {temperature3}\n\n")
-```
 
 **code5** The code shows how I send the data to csv file. 
 
@@ -622,9 +584,46 @@ This applies to remote temperature as well. For remote temperature, it seems tha
 **fig12** Shows the graph of sensors0,2,4 (temperature) and the standard deviation of combined data from selected sensors.
 <img width="max" alt="Screenshot 2023-12-12 at 11 47 45 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/8b1fccef-3c46-4771-bd78-ea5e526f2f17">
 
-# 2. The client requested that the local variables will be measured using a set of 4 sensors around the dormitory.
-ayane onegaishimasu
+# 2. The client requested that the local variables will be measured using a set of 3 sensors around the dormitory.
+## get data from arduino
+I defined a function named read_arduino to retrieve data from an Arduino device. This function utilizes the Serial library, providing the capability to distinguish and collect data from the Arduino. It requires parameters such as the port, which signifies the Arduino's name, baudrate, representing the communication speed, and timeout, specifying the duration for connection timeout. Three variables, namely d1, d2, and d3, are initialized as empty strings. However, as nothing is appended to them within the while loop, the loop persists indefinitely. Inside the loop, the readline method is invoked on the Arduino data. Notably, each sensor's data (d1, d2, and d3) should be received in succession, yet the current implementation reads the same data for each sensor in a loop. Furthermore, the code attempts to decode the binary data into a Unicode string using the UTF-8 encoding. UTF-8 is chosen for its ability to represent every character in the Unicode character set. It's worth noting that the code might have some logical issues, as the while loop conditions are not effectively checking the length of the data, and the variables d1, d2, and d3 are assigned the same decoded data.
 
+
+**code1** The code shows how to read data from arduino.
+```.py
+def read_arduino():
+    arduino = serial.Serial(port="/dev/cu.usbserial-10", baudrate=9600, timeout=0.1)
+    d1,d2,d3 = "","",""
+    while len(d1< 1):
+        data = arduino.readline()
+    while len(d2 < 1):
+        data = arduino.readline()
+    while len(d3 < 1):
+        data = arduino.readline()
+    d1 = data.decode("utf-8")
+    d2 = data.decode("utf-8")
+    d3 = data.decode("utf-8")
+    return d1, d2, d3
+```
+
+**code2** The code shows how I set the interval to record the data every 5 min for 48 hours.
+```.py
+def save_csv(data, file_name="reading.csv"):
+    d1, d2, d3 = data
+    print("Raw data:", d1, d2, d3)  # Add this line to print the raw data
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open(file_name, "a") as f:
+        f. write(f"{timestamp},\n")
+        if ',' in d1:
+            humidity1, temperature1 = d1.split(',')
+            f.write(f"Sensor 1: Humidity: {humidity1} Temperature: {temperature1}\n")
+        if ',' in d2:
+            humidity2, temperature2 = d2.split(',')
+            f.write(f"Sensor 2: Humidity: {humidity2} Temperature: {temperature2}\n")
+        if ',' in d3:
+            humidity3, temperature3 = d3.split(',')
+            f.write(f"Sensor 3: Humidity: {humidity3} Temperature: {temperature3}\n\n")
+```
 # 3,6. The solution provides a mathematical modelling for the Humidity and Temperature levels for each Local and Remote locations. (linear model and non-lineal model), The solution provides a prediction for the subsequent 12 hours for both temperature and humidity.
 
 # 4. The solution provides a comparative analysis for the Humidity and Temperature levels for each Local and Remote locations including mean, standad deviation, minimum, maximum, and median.
