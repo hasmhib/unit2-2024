@@ -155,7 +155,7 @@ I defined a function called login that facilitates user authentication to a web 
 **code1** The function called login.
 ```.py
 
-import requestmあkっs
+import requests
 
 def login():
     user = {"username": ***, "password": ***}
