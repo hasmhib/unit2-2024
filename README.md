@@ -251,7 +251,7 @@ def main():
 
     print("Data collection complete.")
 ```
-**fig5** This picture shows how is data seved to reading.csv.
+**fig1** This picture shows how is data seved to reading.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
 
 **code6** The codes show how to reorganize the data in reading.csv and make a list from the new csv file.
@@ -306,10 +306,10 @@ def make_list():
 
 
 ```
-**fig6** This picture shows how is the value reorganized in formatted_data.csv.
+**fig2** This picture shows how is the value reorganized in formatted_data.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 32" src="https://github.com/hasmhib/unit2-2024/assets/142702159/11a08261-0173-41a4-8004-8821f78318b9">
 
-**fig7** This picture shows the result of the function, make_list.
+**fig3** This picture shows the result of the function, make_list.
 <img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
 
 
@@ -326,7 +326,8 @@ We fulfilled success criteria 1 by developing a system to collect and visualize 
 First, I needed to separate the columns of my CSV files and create columns. By renaming the columns, I made the DataFrame more understandable and easier to manipulate for future developers. For example, if you want to access the data for 'Room Humidity 1', you can simply use data['Room Humidity 1'], thanks to this clear and descriptive naming.
 
 The CSV file contains data in a comma-separated format. Each line in the file represents a record with different data points. 
-**fig8** This picture shows how is the value reorganized in formatted_data.csv.
+
+**fig4** This picture shows how is the value reorganized in formatted_data.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
 This line consists of a date, a time, humidity of sensor1, temperature of sensor1, humidity of sensor2, temperature of sensor2, humidity of sensor3 and temperature of sensor3,  each separated by a comma.
 
@@ -403,10 +404,10 @@ On the frist row of the code, I am connecting the 'Date' and 'Time' columns of t
 
 In this code, I'm creating a detailed line graph to visualize room temperature data over time using Matplotlib in Python. I set the figure size and plot three humidity and temperature datasets, each representing different room humidity and temperatures, with different colors. The y-axis limits are adjusted to show the entire range of humidity and temperature data. To make a graph more easier to visualize, I add labels, a title, a legend, and a grid. The x-axis dates are formatted to display both the date and time, and I use auto-formatting features to ensure these labels are clear and non-overlapping. This approach allows me to effectively present a visual comparison of humidity and temperature changes over time in different rooms.
 
-**fig9** Shows the raw graph of humidity data recorded during 48 hours by using **code10**
+**fig5** Shows the raw graph of humidity data recorded during 48 hours by using **code10**
 <img width="max" alt="Screenshot 2023-12-12 at 11 30 57 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/135507c4-9b9f-4539-9b7b-d2317d5ba44b">
 
-**fig10** Shows the raw graph of temperature data recorded during 48 hours by using **code11**
+**fig6** Shows the raw graph of temperature data recorded during 48 hours by using **code11**
 <img width="max" alt="Screenshot 2023-12-12 at 11 31 56 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/b943561e-3fb2-40af-a152-367dd1994482">
 
 ## Smoothing these raw graphs to visualize the data easily
@@ -422,10 +423,10 @@ def smoothing(values:[], size_window:int=5):
 ```
 The clients wants easy visualization, as may difficult for them only the raw graph. Therefore, in this code, I define a function named smoothing to apply a simple moving average smoothing technique to a list of values so that the clients can visualize more easily. The function takes two parameters, a list of values and size_window parameter with a default value of 5. I used through the list in steps of size_window, calculating the mean of each window of values. I sum the values in the current window and divide by the window size to get the average. I then store a tuple containing the window's starting index and the calculated mean in smoothed_values. This results in a list of tuples, each has the average value of a segment of the list.
 
-**fig11** Shows the smoothed version of humidity data recorded during 48 hours
+**fig7** Shows the smoothed version of humidity data recorded during 48 hours
 <img width="max" alt="Screenshot 2023-12-13 at 7 06 02 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/e0449b70-1f02-4908-b5c1-974bf28bd61e">
 
-**fig12** Shows Shows the smoothed version of temperature data recorded during 48 hours
+**fig8** Shows Shows the smoothed version of temperature data recorded during 48 hours
 <img width="max" alt="Screenshot 2023-12-13 at 7 08 36 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/250200be-6be4-4945-bc34-15bf555f10b3">
 
 ## Plot graphs of remote humidity and temperature
@@ -609,16 +610,16 @@ In this code, I used Matplotlib and GridSpec to create a comprehensive visualiza
 However, for remote humidity, it seems that sensor 3 is broken and not functioning properly. Therefore, I calculated range, mean, minimum, maximum and standard deviation of combined data from sensor 1,5 to make teh data more accurate and proper. 
 This applies to remote temperature as well. For remote temperature, it seems that sensor 0 is broken and not functioning properly. Therefore, I calculated range, mean, minimum, maximum and standard deviation of combined data from sensor 2,4 to make teh data more accurate and proper.
 
-**fig13** Shows the graph of sensors1,3,5 (humidity) and the analysis of sensors 1,5. This includes range, mean, minimum, maximum of combined data from selected sensors.
+**fig9** Shows the graph of sensors1,3,5 (humidity) and the analysis of sensors 1,5. This includes range, mean, minimum, maximum of combined data from selected sensors.
 <img width="max" alt="Screenshot 2023-12-12 at 11 45 32 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/daf70e3b-d88f-40ff-84c5-e41cee7ade94">
 
-**fig14** Shows the graph of sensors1,3,5 (humidity) and the standard deviation of combined data from selected sensors.
+**fig10** Shows the graph of sensors1,3,5 (humidity) and the standard deviation of combined data from selected sensors.
 <img width="max" alt="Screenshot 2023-12-12 at 11 47 15 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/6d298be1-ca3c-47d3-82b6-030a716e1724">
 
-**fig15** Shows the graph of sensors0,2,4 (temperature) and the analysis of sensors 2,4. This includes range, mean, minimum, maximumof combined data from selected sensors.
+**fig11** Shows the graph of sensors0,2,4 (temperature) and the analysis of sensors 2,4. This includes range, mean, minimum, maximumof combined data from selected sensors.
 <img width="max" alt="Screenshot 2023-12-12 at 11 45 58 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/b2818635-fca8-4832-aff3-dd5d1b7fb1be">
 
-**fig10** Shows the graph of sensors0,2,4 (temperature) and the standard deviation of combined data from selected sensors.
+**fig12** Shows the graph of sensors0,2,4 (temperature) and the standard deviation of combined data from selected sensors.
 <img width="max" alt="Screenshot 2023-12-12 at 11 47 45 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/8b1fccef-3c46-4771-bd78-ea5e526f2f17">
 
 # 2. The client requested that the local variables will be measured using a set of 4 sensors around the dormitory.
@@ -632,7 +633,7 @@ ayane onegaishimasu
 
 To fulfill success criteria 5, I developed a system for data backup and remote transfer. First, I collected data using Arduino sensors, saving it every five minutes to a local CSV file over a 48-hour period. I then reorganized this data for clarity and extracted important information into a new CSV file. Finally, using a send_data function, I transmitted this data to a remote server, ensuring a reliable backup. This process ensured not only the local storage of data but also its safe transfer to a remote server, meeting the criteria for data backup and redundancy.
 
-**code15** The code shows how I send the data to csv file. 
+**code1** The code shows how I send the data to csv file. 
 
 ```.py
 def main():
@@ -652,7 +653,7 @@ def main():
 **fig1** This picture shows how is data seved to reading.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
 
-**code16** The codes show how to reorganize the data in reading.csv and make a list from the new csv file.
+**code2** The codes show how to reorganize the data in reading.csv and make a list from the new csv file.
 ```.py
 def process_data():
     output=[]
@@ -704,13 +705,13 @@ def make_list():
 
 
 ```
-**fig13** This picture shows how is the value reorganized in formatted_data.csv.
+**fig2** This picture shows how is the value reorganized in formatted_data.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 32" src="https://github.com/hasmhib/unit2-2024/assets/142702159/11a08261-0173-41a4-8004-8821f78318b9">
 
-**fig14** This picture shows the result of the function, make_list.
+**fig3** This picture shows the result of the function, make_list.
 <img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
 
-**code17** The code above shows how to send data to the surver and receive what user sent to it.
+**code3** The code above shows how to send data to the surver and receive what user sent to it.
 ```.py
 def send_data(value:list,date:list,sensor_id):
     for x in range(len(value)):
