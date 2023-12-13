@@ -334,7 +334,7 @@ This line consists of a date, a time, humidity of sensor1, temperature of sensor
 After loading the data, the DataFrame has default of column headers (0, 1, 2, ...). To make the data easier to work with, I assigned names to each column to makes other developers easy to understand when they see my code. 
 I did this by setting the data.columns attribute.
 
-**code9** Shows the part of the program to assigning column names
+**code7** Shows the part of the program to assigning column names
 ```.py
 data.columns = ['Date', 'Time', 'Room Humidity 1', 'Room Temperature 1',
                 'Room Humidity 2', 'Room Temperature 2', 'Room Humidity 3', 'Room Temperature 3'
@@ -347,7 +347,7 @@ By renaming the columns and separating it, I made the DataFrame more understanda
 
 After separating the columns, I plot the graphs for the local humidity and temperature data recorded during 48 hours.
 
-**code10** Shows code used for plotting graphs for humidity data recorded during 48 hours.
+**code8** Shows code used for plotting graphs for humidity data recorded during 48 hours.
 ```.py
 data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
 
@@ -374,7 +374,7 @@ plt.gcf().autofmt_xdate()
 plt.show()
 ```
 
-***code11** Shows code used for plotting graphs for temperature data recorded during 48 hours.
+***code9** Shows code used for plotting graphs for temperature data recorded during 48 hours.
 ```.py
 data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
 
@@ -411,7 +411,7 @@ In this code, I'm creating a detailed line graph to visualize room temperature d
 <img width="max" alt="Screenshot 2023-12-12 at 11 31 56 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/b943561e-3fb2-40af-a152-367dd1994482">
 
 ## Smoothing these raw graphs to visualize the data easily
-
+**code10** show the code to make a smooth graph
 ```.py
 def smoothing(values:[], size_window:int=5):
     smoothed_values = []
@@ -433,7 +433,7 @@ The clients wants easy visualization, as may difficult for them only the raw gra
 
 The client wants the visual representation of the Humidity and Temperature values outside the house (Remote) for a period of minimum 48 hours as well. Therefore, I created a graph with the data from remote humidity and temperature. Firdstly, I needed to get a data from each sensors, and I also needed to track when each sensor reading was taken. This is done by using functions get_sensors and get_sensors_datetime. After this, I used Matplotlib and GridSpec to create a comprehensive visualization of sensor data.
 
-**code00** 
+**code11** shows the code to get the data from specific sensor.
 ```.py
 def get_sensors(ids:list[int]=[1]):
     recordings = get_readings()
@@ -451,7 +451,7 @@ def get_sensors(ids:list[int]=[1]):
 
 get_sensors :In get_sensors, I used sensor readings for specified IDs. I initialize a dictionary to store readings for each ID and then identify through all recordings, adding the values to the corresponding lists in the dictionary if the sensor ID matches. This function organizes sensor data by ID, making it easy to access and analyze specific sensor readings.
 
-**code00** 
+**code12** shows the codes to get data with specific time points.
 ```.py
 def get_sensors_datetime(ids:list[int]=[1]):
     recordings = get_readings()
@@ -466,7 +466,7 @@ def get_sensors_datetime(ids:list[int]=[1]):
 ```
 get_sensors_datetime : I follow a similar approach but I focus on extracting datetime information. I create a list and append the datetime of each relevant recording, allowing me to track each sensor reading taken. This is used for time series analysis or when I need to use sensor readings with specific time points. 
 
-**code00** Shows code used for plotting graphs for remote humidity (sensors 1, 3, 5)
+**code13** Shows code used for plotting graphs for remote humidity (sensors 1, 3, 5)
 ```.py
 from matplotlib.gridspec import GridSpec
 import numpy as np
@@ -536,7 +536,7 @@ fig.autofmt_xdate()
 plt.show()
 ```
 
-**code00** Shows code used for plotting graphs for remote temperature (sensors 0, 2, 4)
+**code14** Shows code used for plotting graphs for remote temperature (sensors 0, 2, 4)
 ```.py
 from matplotlib.gridspec import GridSpec
 import numpy as np
@@ -633,7 +633,7 @@ ayane onegaishimasu
 
 To fulfill success criteria 5, I developed a system for data backup and remote transfer. First, I collected data using Arduino sensors, saving it every five minutes to a local CSV file over a 48-hour period. I then reorganized this data for clarity and extracted important information into a new CSV file. Finally, using a send_data function, I transmitted this data to a remote server, ensuring a reliable backup. This process ensured not only the local storage of data but also its safe transfer to a remote server, meeting the criteria for data backup and redundancy.
 
-**code5** The code shows how I send the data to csv file. 
+**code15** The code shows how I send the data to csv file. 
 
 ```.py
 def main():
@@ -653,7 +653,7 @@ def main():
 **fig1** This picture shows how is data seved to reading.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
 
-**code6** The codes show how to reorganize the data in reading.csv and make a list from the new csv file.
+**code16** The codes show how to reorganize the data in reading.csv and make a list from the new csv file.
 ```.py
 def process_data():
     output=[]
@@ -711,7 +711,7 @@ def make_list():
 **fig3** This picture shows the result of the function, make_list.
 <img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
 
-**code7** The code above shows how to send data to the surver and receive what user sent to it.
+**code17** The code above shows how to send data to the surver and receive what user sent to it.
 ```.py
 def send_data(value:list,date:list,sensor_id):
     for x in range(len(value)):
