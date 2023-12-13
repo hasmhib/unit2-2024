@@ -155,8 +155,7 @@ I defined a function called login that facilitates user authentication to a web 
 **code1** The function called login.
 ```.py
 
-import requests
-
+import requestmあkっs
 
 def login():
     user = {"username": ***, "password": ***}
@@ -170,8 +169,6 @@ Next, I defined the function create_new_sensor to create a new sensor in the URL
 
 
 ```.py
-
-
 def create_new_sensor(name, sensor_type, location, unit=""):
     ip = "192.168.6.153"
     headers = login()
@@ -436,6 +433,23 @@ In this code, I'm creating a detailed line graph to visualize room temperature d
 <img width="max" alt="Screenshot 2023-12-12 at 11 31 56 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/b943561e-3fb2-40af-a152-367dd1994482">
 
 ## Smoothing these raw graphs to visualize the data easily
+
+```.py
+def smoothing(values:[], size_window:int=5):
+    smoothed_values = []
+    for i in range(0, len(values), size_window):
+        window_mean = sum(values[i:i + size_window]) / size_window
+        smoothed_values.append((i, window_mean))
+
+    return smoothed_values
+```
+The clients wants easy visualization, as may difficult for them only the raw graph. Therefore, in this code, I define a function named smoothing to apply a simple moving average smoothing technique to a list of values so that the clients can visualize more easily. The function takes two parameters, a list of values and size_window parameter with a default value of 5. I used through the list in steps of size_window, calculating the mean of each window of values. I sum the values in the current window and divide by the window size to get the average. I then store a tuple containing the window's starting index and the calculated mean in smoothed_values. This results in a list of tuples, each has the average value of a segment of the list.
+
+**fig00** Shows the smoothed version of humidity data recorded during 48 hours
+<img width="max" alt="Screenshot 2023-12-13 at 7 06 02 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/e0449b70-1f02-4908-b5c1-974bf28bd61e">
+
+**fig00** Shows Shows the smoothed version of temperature data recorded during 48 hours
+<img width="max" alt="Screenshot 2023-12-13 at 7 08 36 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/250200be-6be4-4945-bc34-15bf555f10b3">
 
 ## Plot graphs of remote humidity and temperature
 
