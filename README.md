@@ -453,7 +453,7 @@ The clients wants easy visualization, as may difficult for them only the raw gra
 
 ## Plot graphs of remote humidity and temperature
 
-The client wants the visual representation of the Humidity and Temperature values outside the house (Remote) for a period of minimum 48 hours as well. Therefore, I created a graph with the data from remote humidity and temperature. This is done by using functions get_sensors and get_sensors_datetime.
+The client wants the visual representation of the Humidity and Temperature values outside the house (Remote) for a period of minimum 48 hours as well. Therefore, I created a graph with the data from remote humidity and temperature. Firdstly, I needed to get a data from each sensors, and I also needed to track when each sensor reading was taken. This is done by using functions get_sensors and get_sensors_datetime. After this, I used Matplotlib and GridSpec to create a comprehensive visualization of sensor data.
 
 **code00** 
 ```.py
@@ -470,6 +470,9 @@ def get_sensors(ids:list[int]=[1]):
 
     return my_sensors
 ```
+
+get_sensors　：In get_sensors, I used sensor readings for specified IDs. I initialize a dictionary to store readings for each ID and then identify through all recordings, adding the values to the corresponding lists in the dictionary if the sensor ID matches. This function organizes sensor data by ID, making it easy to access and analyze specific sensor readings.
+
 **code00** 
 ```.py
 def get_sensors_datetime(ids:list[int]=[1]):
@@ -483,6 +486,7 @@ def get_sensors_datetime(ids:list[int]=[1]):
 
     return sensor_datetime
 ```
+get_sensors_datetime : I follow a similar approach but I focus on extracting datetime information. I create a list and append the datetime of each relevant recording, allowing me to track each sensor reading taken. This is used for time series analysis or when I need to use sensor readings with specific time points. 
 
 **code00** Shows code used for plotting graphs for remote humidity (sensors 1, 3, 5)
 ```.py
