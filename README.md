@@ -70,9 +70,14 @@ This functioin makes it available to post the data with new id.
 
 **fig2** flow diagram of the function, get_sensor.
 
-This flow diagram shows the function called get_sensor.By using request library, get data from API and arrange them as json file. Only pick the value with the specific sensor_id, and add to the list. The list is for drawing graph.
+This flow diagram shows the function called get_sensor. By using request library, get data from API and arrange them as json file. Only pick the value with the specific sensor_id, and add to the list. The list is for drawing graph.
+
+
+<img width="372" alt="flow diagram" src="https://github.com/hasmhib/unit2-2024/assets/142702159/56abd646-f1b5-4b0b-978f-686a90a44165">
 
 **fig3** flow diagram of the function
+This flow diagram shows the function called get_sensor_datatime. This function is for getting time when the data from specific sensor_id is taken.
+
 ## System Diagram
 
 ![HL](https://github.com/comsci-uwc-isak/unit2_2023/assets/53995212/4891d5e9-b8ab-46ed-bd75-b606e25e3383)
