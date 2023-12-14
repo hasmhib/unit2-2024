@@ -145,8 +145,7 @@ ayane onegaishimasu
 # Data storing
 ## login and create a new sensor
 
-I defined a function called login that facilitates user authentication to a web service. The function takes no arguments and is responsible for generating and returning an authorization token required for subsequent secured interactions with the service. Inside the function, a dictionary user is created with a predefined username and password. The requests.post method is then utilized to send a POST request to the specified URL ('http://192.168.6.153/login') with the user credentials provided as json data. The response from the server is parsed as json, and the access token, a crucial element for authorization, is extracted by using .json(). The json returns as dictionary, I used ["access_token"] id to access its values. 
-Finally, the function constructs and returns a dictionary with an "Authorization" key, incorporating the obtained access token using the Bearer token authentication scheme. This token can be subsequently used in the headers of other HTTP requests to access secured endpoints on the web service. 
+I defined a function called login that facilitates user authentication to a web service. The function takes no arguments and is responsible for generating and returning an authorization token required for subsequent secured interactions with the service. Inside the function, a dictionary user is created with a predefined username and password. The requests.post method is then utilized to send a POST request to the specified URL ('http://192.168.6.153/login') with the user credentials provided as json data. The response from the server is parsed as json, and the access token, a crucial element for authorization, is extracted. Finally, the function constructs and returns a dictionary with an "Authorization" key, incorporating the obtained access token using the Bearer token authentication scheme. This token can be subsequently used in the headers of other HTTP requests to access secured endpoints on the web service.
 
 
 **code1** The function called login.
@@ -179,8 +178,10 @@ def create_new_sensor(name, sensor_type, location, unit=""):
 
 ### what I got from the function
 
+In the code, I am using a function create_new_sensor repeatedly to create different sensor objects, each with different attributes such as type, owner ID, unit, location, and name. 
 
 **code2** The function called create_new_sensor.
+
 ```.py
 create_new_sensor("Ayane_no_t1","Temeperature","R2-10","C")
 #{"type": "Temperature","owner_id": 5, "unit": "C", "location": "R2-10", "name": "Ayane_no_t1","id": 68},
@@ -195,10 +196,11 @@ create_new_sensor("Ayane_no_h2","Humidity","R2-10","%")
 create_new_sensor("Ayane_no_h3","Humidity","R2-10","%")
 # {"type": "Humidity","owner_id": 5,"unit": "%","location": "R2-10","name": "Ayane_no_h3","id": 73}
 ```
+## Getting data from arduino
 
+I start by noting the current time using datetime.now() and set the total duration for data collection to 48 hours. The code then enters a loop that continues until the total duration of 48 hours is reached by using while loop. Inside this loop, there's another while loop for collecting data every 5 minutes. This is achieved by setting an end time 5 minutes ahead of the current time. Within this 5-minute loop, I read data from an Arduino device using the read_arduino function and save this data to a CSV file with save_csv. After each data collection, the program waits for 300 seconds (5 minutes) before collecting data again. Once the 48 hours are up, the program prints a message saying "Data collection complete."
 
-
-**code5** The code shows how I send the data to csv file. 
+**code2** The code shows how I set the interval to record the data every 5 min for 48 hours.
 
 ```.py
 def main():
@@ -215,9 +217,32 @@ def main():
 
     print("Data collection complete.")
 ```
+
+ここにコードの説明
+**code5** The code shows how I send the data to csv file. 
+
+```.py
+def save_csv(data, file_name="reading.csv"):
+    d1, d2, d3 = data
+    print("Raw data:", d1, d2, d3)  # Add this line to print the raw data
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open(file_name, "a") as f:
+        f. write(f"{timestamp},\n")
+        if ',' in d1:
+            humidity1, temperature1 = d1.split(',')
+            f.write(f"{humidity1}, {temperature1}\n")
+        if ',' in d2:
+            humidity2, temperature2 = d2.split(',')
+            f.write(f"{humidity2}, {temperature2}\n")
+        if ',' in d3:
+            humidity3, temperature3 = d3.split(',')
+            f.write(f"{humidity3}, {temperature3}\n\n")
+```
+
 **fig1** This picture shows how is data seved to reading.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
 
+ここにコードの説明
 **code6** The codes show how to reorganize the data in reading.csv and make a list from the new csv file.
 ```.py
 def process_data():
@@ -375,6 +400,9 @@ In this code, I'm creating a detailed line graph to visualize room temperature d
 <img width="max" alt="Screenshot 2023-12-12 at 11 31 56 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/b943561e-3fb2-40af-a152-367dd1994482">
 
 ## Smoothing these raw graphs to visualize the data easily
+
+The clients wants easy visualization, as may difficult for them only the raw graph. Therefore, in this code, I define a function named smoothing to apply a simple moving average smoothing technique to a list of values so that the clients can visualize more easily. The function takes two parameters, a list of values and size_window parameter with a default value of 5. I used through the list in steps of size_window, calculating the mean of each window of values. I sum the values in the current window and divide by the window size to get the average. I then store a tuple containing the window's starting index and the calculated mean in smoothed_values. This results in a list of tuples, each has the average value of a segment of the list.
+
 **code4** show the code to make a smooth graph
 ```.py
 def smoothing(values:[], size_window:int=5):
@@ -385,7 +413,6 @@ def smoothing(values:[], size_window:int=5):
 
     return smoothed_values
 ```
-The clients wants easy visualization, as may difficult for them only the raw graph. Therefore, in this code, I define a function named smoothing to apply a simple moving average smoothing technique to a list of values so that the clients can visualize more easily. The function takes two parameters, a list of values and size_window parameter with a default value of 5. I used through the list in steps of size_window, calculating the mean of each window of values. I sum the values in the current window and divide by the window size to get the average. I then store a tuple containing the window's starting index and the calculated mean in smoothed_values. This results in a list of tuples, each has the average value of a segment of the list.
 
 **fig4** Shows the smoothed version of humidity data recorded during 48 hours
 <img width="max" alt="Screenshot 2023-12-13 at 7 06 02 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/e0449b70-1f02-4908-b5c1-974bf28bd61e">
@@ -397,7 +424,10 @@ The clients wants easy visualization, as may difficult for them only the raw gra
 
 The client wants the visual representation of the Humidity and Temperature values outside the house (Remote) for a period of minimum 48 hours as well. Therefore, I created a graph with the data from remote humidity and temperature. Firdstly, I needed to get a data from each sensors, and I also needed to track when each sensor reading was taken. This is done by using functions get_sensors and get_sensors_datetime. After this, I used Matplotlib and GridSpec to create a comprehensive visualization of sensor data.
 
+get_sensors :In get_sensors, I used sensor readings for specified IDs. I initialize a dictionary to store readings for each ID and then identify through all recordings, adding the values to the corresponding lists in the dictionary if the sensor ID matches. This function organizes sensor data by ID, making it easy to access and analyze specific sensor readings.
+
 **code5** shows the code to get the data from specific sensor.
+
 ```.py
 def get_sensors(ids:list[int]=[1]):
     recordings = get_readings()
@@ -413,7 +443,7 @@ def get_sensors(ids:list[int]=[1]):
     return my_sensors
 ```
 
-get_sensors :In get_sensors, I used sensor readings for specified IDs. I initialize a dictionary to store readings for each ID and then identify through all recordings, adding the values to the corresponding lists in the dictionary if the sensor ID matches. This function organizes sensor data by ID, making it easy to access and analyze specific sensor readings.
+get_sensors_datetime : I follow a similar approach but I focus on extracting datetime information. I create a list and append the datetime of each relevant recording, allowing me to track each sensor reading taken. This is used for time series analysis or when I need to use sensor readings with specific time points. 
 
 **code6** shows the codes to get data with specific time points.
 ```.py
@@ -428,7 +458,8 @@ def get_sensors_datetime(ids:list[int]=[1]):
 
     return sensor_datetime
 ```
-get_sensors_datetime : I follow a similar approach but I focus on extracting datetime information. I create a list and append the datetime of each relevant recording, allowing me to track each sensor reading taken. This is used for time series analysis or when I need to use sensor readings with specific time points. 
+
+In this code, I used Matplotlib and GridSpec to create a comprehensive visualization of sensor data. I first retrieve sensor readings using a custom library and calculate statistical values like mean and standard deviation. The main plot, spanning a large grid, illustrates the range, mean, and minimum and maximum of combined data from selected sensors. This is done using fill_between for range visualization and line plots for mean and extremes, providing a clear visual summary of sensor data over time. Additionally, I create smaller subplots for each sensor, plotting their individual readings in different colors and styles for detailed analysis. These subplots offer a focused view on each sensor's data. The x-axis across the plots is formatted to display time using mdates, makes client easier to visualise the data. Finally, I display the entire figure, showing both the overall datas and specific details of the sensors' readings in a unified layout.
 
 **code7** Shows code used for plotting graphs for remote humidity (sensors 1, 3, 5)
 ```.py
@@ -569,7 +600,6 @@ fig.autofmt_xdate()
 
 plt.show()
 ```
-In this code, I used Matplotlib and GridSpec to create a comprehensive visualization of sensor data. I first retrieve sensor readings using a custom library and calculate statistical values like mean and standard deviation. The main plot, spanning a large grid, illustrates the range, mean, and minimum and maximum of combined data from selected sensors. This is done using fill_between for range visualization and line plots for mean and extremes, providing a clear visual summary of sensor data over time. Additionally, I create smaller subplots for each sensor, plotting their individual readings in different colors and styles for detailed analysis. These subplots offer a focused view on each sensor's data. The x-axis across the plots is formatted to display time using mdates, makes client easier to visualise the data. Finally, I display the entire figure, showing both the overall datas and specific details of the sensors' readings in a unified layout.
 
 However, for remote humidity, it seems that sensor 3 is broken and not functioning properly. Therefore, I calculated range, mean, minimum, maximum and standard deviation of combined data from sensor 1,5 to make teh data more accurate and proper. 
 This applies to remote temperature as well. For remote temperature, it seems that sensor 0 is broken and not functioning properly. Therefore, I calculated range, mean, minimum, maximum and standard deviation of combined data from sensor 2,4 to make teh data more accurate and proper.
@@ -608,18 +638,14 @@ def read_arduino():
     return d1, d2, d3
 ```
 
-**code2** The code shows how I set the interval to record the data every 5 min for 48 hours.
-
-```.py
-
-
-```
-
 # 3,6. The solution provides a mathematical modelling for the Humidity and Temperature levels for each Local and Remote locations. (linear model and non-lineal model), The solution provides a prediction for the subsequent 12 hours for both temperature and humidity.
 
 I fulfilled the success criteria of providing a mathematical modeling and 12-hour prediction for humidity and temperature at both local and remote locations by implementing linear and quadratic regression models.
 
 ## Linear Regression Implementation
+
+I defined a linear_regression function to calculate the slope and intercept for a linear fit. This function takes x (timestamps) and y (sensor data) as inputs and computes the coefficients of the linear equation.
+Using this function, I applied linear regression to the sensor data.
 
 **code00** Shows a part of a code to create a linear model of both humidity and temperature over 48 hours
 
@@ -630,8 +656,8 @@ def linear_regression(x, y):
     intercept = (np.sum(y) - slope * np.sum(x)) / n
     return slope, intercept
 ```
-I defined a linear_regression function to calculate the slope and intercept for a linear fit. This function takes x (timestamps) and y (sensor data) as inputs and computes the coefficients of the linear equation.
-Using this function, I applied linear regression to the sensor data.
+
+Using the regression coefficients, I calculated the predicted values (y_pred) for the existing timestamps and extended this to predict future values for the next 12 hours.
 
 ```.py
 for temp_type, color in zip(humidity_types, colors_humidity):
@@ -645,7 +671,6 @@ for temp_type, color in zip(humidity_types, colors_humidity):
     future_timestamps = np.arange(x[-1], x[-1] + 12 * 3600, 3600)
     future_y_pred = slope * future_timestamps + intercept
 ```
-Using the regression coefficients, I calculated the predicted values (y_pred) for the existing timestamps and extended this to predict future values for the next 12 hours.
 
 **fig00** Shows the linear Model Humidity Over Time with Future Prediction
 <img width="max" alt="Screenshot 2023-12-14 at 9 13 08 AM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/18cfb737-509a-4845-ae6f-c946a0c46690">
@@ -666,15 +691,17 @@ For a more detailed analysis, I employed quadratic regression using the fit_and_
 
 **code00** Shows the part of the code to plot a quadaratic model for both humidity and temperature over time
 
+I used Polynomial.fit(X, y, 2) from the numpy.polynomial.polynomial module to fit a quadratic polynomial to the data. The 2 indicates that I am fitting a polynomial of degree 2, which corresponds to a quadratic equation.
+I also used the coefficients I got from the polynomial fitting to figure out the predicted values. This means I followed a usual formula for a quadratic equation: coefs[0] + coefs[1] * X + coefs[2] * X squared. In this formula, coefs[0] is the starting point of the line, coefs[1] is the slope of the line, and coefs[2] shows how the line curves.
+
 ```.py
 def fit_and_predict_quadratic(X, y):
     coefs = Polynomial.fit(X, y, 2).convert().coef
     predictions = coefs[0] + coefs[1] * X + coefs[2] * X ** 2
     return predictions, coefs
 ```
-
-I used Polynomial.fit(X, y, 2) from the numpy.polynomial.polynomial module to fit a quadratic polynomial to the data. The 2 indicates that I am fitting a polynomial of degree 2, which corresponds to a quadratic equation.
-I also used the coefficients I got from the polynomial fitting to figure out the predicted values. This means I followed a usual formula for a quadratic equation: coefs[0] + coefs[1] * X + coefs[2] * X squared. In this formula, coefs[0] is the starting point of the line, coefs[1] is the slope of the line, and coefs[2] shows how the line curves.
+I start a loop that goes through each temperature column one by one. The "enumerate" part helps me keep track of both the column's name (column) and its position (i).
+I use the fit_and_predict_quadratic function I defined previously, and defined the curve of the model.
 
 **code00** Shows the part of the code to plot a quadaratic model for temperature over time (This applies to humidity as well)
 
@@ -688,9 +715,6 @@ for i, column in enumerate(['Room Temperature 1', 'Room Temperature 2', 'Room Te
     future_predictions = coefs[0] + coefs[1] * future_timestamps + coefs[2] * future_timestamps ** 2
     plt.plot(future_datetimes, future_predictions, label=f'12h Prediction for {column}', linestyle=':', color=colors[i])
 ```
-
-I start a loop that goes through each temperature column one by one. The "enumerate" part helps me keep track of both the column's name (column) and its position (i).
-I use the fit_and_predict_quadratic function I defined previously, and defined the curve of the model.
 
 **fig00** Shows the Quadratic Model Humidity Over Time with Future Prediction
 <img width="max" alt="Screenshot 2023-12-14 at 9 41 15 AM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/343d2ff4-51c9-44a3-a3a9-981978a3e1de">
@@ -734,6 +758,7 @@ def save_csv(data, file_name="reading.csv"):
 **fig1** This picture shows how is data seved to reading.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
 
+コードの説明
 **code2** The codes show how to reorganize the data in reading.csv and make a list from the new csv file.
 ```.py
 def process_data():
@@ -792,6 +817,7 @@ def make_list():
 **fig3** This picture shows the result of the function, make_list.
 <img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
 
+コードの説明
 **code3** The code above shows how to send data to the surver and receive what user sent to it.
 ```.py
 def send_data(value:list,date:list,sensor_id):
@@ -818,8 +844,7 @@ send_data(t3,date,70)
 
 
 # 7. The solution includes a poster summarizing the visual representations, model and analysis created. The poster includes a recommendation about healthy levels for Temperature and Humidity.
-![back ground](https://github.com/hasmhib/unit2-2024/assets/142702159/03ae8b96-07bc-4880-95c8-9f58b3d88362)
-
+akirame
 
 # Criteria D: Functionality
 A 7 min video demonstrating the proposed solution with narration
