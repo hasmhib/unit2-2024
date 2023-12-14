@@ -354,6 +354,11 @@ By renaming the columns and separating it, I made the DataFrame more understanda
 
 After separating the columns, I plot the graphs for the local humidity and temperature data recorded during 48 hours.
 
+On the first row of the code, I am connecting the 'Date' and 'Time' columns of the DataFrame. This is because to create a single string for each row that represents both the date and time.
+
+In this code, I'm creating a detailed line graph to visualize room temperature data over time using Matplotlib in Python. I set the figure size and plot three humidity and temperature datasets, each representing different room humidity and temperatures, with different colors. The y-axis limits are adjusted to show the entire range of humidity and temperature data. To make a graph more easier to visualize, I add labels, a title, a legend, and a grid. The x-axis dates are formatted to display both the date and time, and I use auto-formatting features to ensure these labels are clear and non-overlapping. This approach allows me to effectively present a visual comparison of humidity and temperature changes over time in different rooms.
+
+
 **code2** Shows code used for plotting graphs for humidity data recorded during 48 hours.
 ```.py
 data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
@@ -407,9 +412,6 @@ plt.gcf().autofmt_xdate()
 
 plt.show()
 ```
-On the frist row of the code, I am connecting the 'Date' and 'Time' columns of the DataFrame. This is because to create a single string for each row that represents both the date and time.
-
-In this code, I'm creating a detailed line graph to visualize room temperature data over time using Matplotlib in Python. I set the figure size and plot three humidity and temperature datasets, each representing different room humidity and temperatures, with different colors. The y-axis limits are adjusted to show the entire range of humidity and temperature data. To make a graph more easier to visualize, I add labels, a title, a legend, and a grid. The x-axis dates are formatted to display both the date and time, and I use auto-formatting features to ensure these labels are clear and non-overlapping. This approach allows me to effectively present a visual comparison of humidity and temperature changes over time in different rooms.
 
 **fig2** Shows the raw graph of humidity data recorded during 48 hours by using **code10**
 <img width="max" alt="Screenshot 2023-12-12 at 11 30 57 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/135507c4-9b9f-4539-9b7b-d2317d5ba44b">
@@ -420,6 +422,7 @@ In this code, I'm creating a detailed line graph to visualize room temperature d
 ## Smoothing these raw graphs to visualize the data easily
 
 The clients wants easy visualization, as may difficult for them only the raw graph. Therefore, in this code, I define a function named smoothing to apply a simple moving average smoothing technique to a list of values so that the clients can visualize more easily. The function takes two parameters, a list of values and size_window parameter with a default value of 5. I used through the list in steps of size_window, calculating the mean of each window of values. I sum the values in the current window and divide by the window size to get the average. I then store a tuple containing the window's starting index and the calculated mean in smoothed_values. This results in a list of tuples, each has the average value of a segment of the list.
+
 
 **code4** show the code to make a smooth graph
 ```.py
@@ -780,6 +783,10 @@ median_values = data[humidity_types].median(axis=1)
 
 To fulfill success criteria 5, I developed a system for data backup and remote transfer. First, I collected data using Arduino sensors, saving it every five minutes to a local CSV file over a 48-hour period. I then reorganized this data for clarity and extracted important information into a new CSV file. Finally, using a send_data function, I transmitted this data to a remote server, ensuring a reliable backup. This process ensured not only the local storage of data but also its safe transfer to a remote server, meeting the criteria for data backup and redundancy.
 
+I defined save_csv which is designed to save data obtained from sensors, presumably related to humidity and temperature, into a CSV file named "reading.csv." The function takes tuple data as input, which contains three string elements, each representing the raw data from different sensors. Additionally, a default file name is set as "reading.csv." The function first prints the raw data for reference. It then generates a timestamp using the current date and time, and appends this timestamp to the CSV file. Subsequently, the function checks each sensor's data for the presence of a comma (','), indicating a humidity-temperature pair. If a comma is found, the data is split into humidity and temperature values, which are then written to the CSV file along with the timestamp. This process is repeated for all three sensors, and each set of humidity and temperature values is followed by two newline characters, creating a structured format in the CSV file.
+
+
+
 **code1** The code shows how I send the data to csv file. 
 
 ```.py
@@ -803,7 +810,8 @@ def save_csv(data, file_name="reading.csv"):
 **fig1** This picture shows how is data seved to reading.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
 
-コードの説明
+I defined process_data to read data from a CSV file named "reading.csv" and processes it to create a new formatted CSV file named "formatted_data.csv." The function reads the lines from the input file, and for each set of eight lines, representing data from different sensors, it extracts and manipulates specific portions to achieve a desired format. The temporal information is adjusted, and unnecessary characters like commas and spaces are stripped. The processed data is then appended to an output list. Finally, the formatted data is written to the "formatted_data.csv" file. The function essentially takes raw data in a specific structure, refines it, and outputs a new CSV file with a modified format, potentially more suitable for analysis or presentation.
+
 **code2** The codes show how to reorganize the data in reading.csv and make a list from the new csv file.
 ```.py
 def process_data():
