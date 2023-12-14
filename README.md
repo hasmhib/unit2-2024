@@ -850,7 +850,9 @@ send_data(t3,date,70)
 # 7. The solution includes a poster summarizing the visual representations, model and analysis created. The poster includes a recommendation about healthy levels for Temperature and Humidity.
 ![back ground](https://github.com/hasmhib/unit2-2024/assets/142702159/a64e793d-e080-4468-bc7a-5fdb4d244bfe)
 
-
+https://drive.google.com/file/d/1atCVbSQ0HbY1D3kfiwuofLbdBy_-xKsV/view?usp=drive_link 
 
 # Criteria D: Functionality
 A 7 min video demonstrating the proposed solution with narration
+
+
