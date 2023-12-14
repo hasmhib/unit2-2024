@@ -259,26 +259,6 @@ def main():
 In this code, I have a function called save_csv to save sensor data into a CSV file.
 The function takes two arguments: data, which is expected to be a tuple of three elements (d1, d2, d3), and file_name with a default value of "reading.csv".
 
-**code5** The code shows how I send the data to csv file. 
-
-```.py
-def save_csv(data, file_name="reading.csv"):
-    d1, d2, d3 = data
-    print("Raw data:", d1, d2, d3)  # Add this line to print the raw data
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    with open(file_name, "a") as f:
-        f. write(f"{timestamp},\n")
-        if ',' in d1:
-            humidity1, temperature1 = d1.split(',')
-            f.write(f"{humidity1}, {temperature1}\n")
-        if ',' in d2:
-            humidity2, temperature2 = d2.split(',')
-            f.write(f"{humidity2}, {temperature2}\n")
-        if ',' in d3:
-            humidity3, temperature3 = d3.split(',')
-            f.write(f"{humidity3}, {temperature3}\n\n")
-```
-
 **fig1** This picture shows how is data saved to reading.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
 
