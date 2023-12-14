@@ -234,11 +234,14 @@ create_new_sensor("Ayane_no_h2","Humidity","R2-10","%")
 create_new_sensor("Ayane_no_h3","Humidity","R2-10","%")
 # {"type": "Humidity","owner_id": 5,"unit": "%","location": "R2-10","name": "Ayane_no_h3","id": 73}
 ```
-## Getting data from arduino
 
-I start by noting the current time using datetime.now() and set the total duration for data collection to 48 hours. The code then enters a loop that continues until the total duration of 48 hours is reached by using while loop. Inside this loop, there's another while loop for collecting data every 5 minutes. This is achieved by setting an end time 5 minutes ahead of the current time. Within this 5-minute loop, I read data from an Arduino device using the read_arduino function and save this data to a CSV file with save_csv. After each data collection, the program waits for 300 seconds (5 minutes) before collecting data again. Once the 48 hours are up, the program prints a message saying "Data collection complete."
+# 1. The client wants The solution that provides a visual representation of the Humidity and Temperature values inside a dormitory (Local) and outside the house (Remote) for a period of minimum 48 hours.
 
-**code2** The code shows how I set the interval to record the data every 5 min for 48 hours.
+We fulfilled success criteria 1 by developing a system to collect and visualize humidity and temperature data both locally and remotely over 48 hours. For visualization, I created line graphs with Matplotlib, presenting clear informations in environmental conditions. This was enhanced with a smoothing function to make clients easier to read. Despite some sensor issues, the adapted graphs effectively provided a comprehensive analysis of the conditions, meeting the criteria of delivering visual representations of the data over the required duration.
+
+## Getting data every 5 min for 48 hours.
+
+I start by noting the current time using datetime.now() and set the total duration for data collection to 48 hours. The code then enters a loop that continues until the total duration of 48 hours is reached by using while loop. Inside this loop, there's another while loop for collecting data every 5 minutes. This is achieved by setting an end time 5 minutes ahead of the current time. Within this 5-minute loop, I read data from an Arduino device using the read_arduino function and save this data to a CSV file with save_csv. After each data collection, the program waits for 300 seconds (5 minutes) before collecting data again. Once the 48 hours are up, the program prints a message saying "Data collection complete.
 
 ```.py
 def main():
@@ -255,77 +258,6 @@ def main():
 
     print("Data collection complete.")
 ```
-
-In this code, I have a function called save_csv to save sensor data into a CSV file.
-The function takes two arguments: data, which is expected to be a tuple of three elements (d1, d2, d3), and file_name with a default value of "reading.csv".
-
-**fig1** This picture shows how is data saved to reading.csv.
-<img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
-
-ここにコードの説明
-**code6** The codes show how to reorganize the data in reading.csv and make a list from the new csv file.
-```.py
-def process_data():
-    output=[]
-    with open('reading.csv', 'r') as file:
-        lines = file.readlines()
-        for i in range(0,len(lines)-8,8):
-            temp = lines[i:i+8]
-            temp2 = []
-            for text in temp:
-                if text != "\n":
-                    temp4=text[0:len(text)-1].strip(",").strip(" ")
-                    temp2.append(temp4)
-            temp2[0]=temp2[0][0:10]+","+temp2[0][11:]
-            temp2[1]=temp2[1][:6]+temp2[1][7:]
-            temp2[2] = temp2[2][:6] + temp2[2][7:]
-            temp2[3] = temp2[3][:6] + temp2[3][7:]
-            output.append(",".join(temp2))
-    # Write the result back to a new file
-    with open('formatted_data.csv', 'w') as output_file:
-        output_file.write("\n".join(output))
-
-def make_list():
-    with (open("formatted_data.csv", "r") as file):
-        lines = file.readlines()
-        date = []
-        t1 = []
-        h1 = []
-        t2 = []
-        h2 = []
-        t3 = []
-        h3 = []
-        for text in lines:
-            lists = text.split(",")
-            if len(lists) >= 7:
-                date.append(lists[0])
-                h1.append(float(lists[1]))
-                t1.append(float(lists[2]))
-                h2.append(float(lists[3]))
-                t2.append(float(lists[4]))
-                h3.append(float(lists[5]))
-                t3.append(float(lists[6]))
-        print(date)
-        print(h2)
-        print(h3)
-        print(t1)
-        print(t2)
-        print(t3)
-    return date,h1,t1,h2,t2,h3,t3
-
-
-```
-**fig2** This picture shows how is the value reorganized in formatted_data.csv.
-<img width="max" alt="Screenshot 2023-12-09 at 13 18 32" src="https://github.com/hasmhib/unit2-2024/assets/142702159/11a08261-0173-41a4-8004-8821f78318b9">
-
-**fig3** This picture shows the result of the function, make_list.
-<img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
-
-
-
-# 1. The client wants The solution that provides a visual representation of the Humidity and Temperature values inside a dormitory (Local) and outside the house (Remote) for a period of minimum 48 hours.
-
-We fulfilled success criteria 1 by developing a system to collect and visualize humidity and temperature data both locally and remotely over 48 hours. For visualization, I created line graphs with Matplotlib, presenting clear informations in environmental conditions. This was enhanced with a smoothing function to make clients easier to read. Despite some sensor issues, the adapted graphs effectively provided a comprehensive analysis of the conditions, meeting the criteria of delivering visual representations of the data over the required duration.
 
 
 # Plotting the graphs for local and remote humidity and temperature
