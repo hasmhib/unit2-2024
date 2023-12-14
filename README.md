@@ -12,7 +12,7 @@ Considering the budgetary constrains of the client and the hardware requirements
 
 **Design statement**
 
-Our team will create a device and program that will calculate both humiditiy and temperature in a room of John's house. To do this, we will use a Raspberry Pi 4 and four DHT_11 sensors to collect the humidity and temperature. The program will upload the collected data onto a server in real-time to reinforce the reliability and validity of our calculated data. We will use the device to record the humidity and temperature inside of a room for 48 hours, and some spots on campus will be able to access the data through an online server anytime using a granted access token. Further, John can use the data collected to compare to local data information on optimal humidity and temperature. This project will take approximately 4 weeks and will be evaluated according to the criteria set above.
+Our team will create a device and program that will calculate both humiditiy and temperature in a room of John's house. To do this, we will use a Raspberry Pi 4 and three DHT_11 sensors to collect the humidity and temperature. The program will upload the collected data onto a server in real-time to reinforce the reliability and validity of our calculated data. We will use the device to record the humidity and temperature inside of a room for 48 hours, and some spots on campus will be able to access the data through an online server anytime using a granted access token. Further, John can use the data collected to compare to local data information on optimal humidity and temperature. This project will take approximately 4 weeks and will be evaluated according to the criteria set above.
 
 ## Success Criteria
 
@@ -590,6 +590,20 @@ def read_arduino():
     d3 = data.decode("utf-8")
     return d1, d2, d3
 ```
+
+
+## the sensor we used
+
+**fig00** the Raspberry Pi 4 and three DHT_11 sensors
+
+<img width="572" alt="Screenshot 2023-12-14 at 9 03 38" src="https://github.com/hasmhib/unit2-2024/assets/142702159/9f1e1240-7b97-405c-a4b7-c914afe16e7f">
+
+
+## the environment we collected the data
+
+**fig00** the location we put the sensor in John's room
+
+<img width="649" alt="Screenshot 2023-12-14 at 9 03 06" src="https://github.com/hasmhib/unit2-2024/assets/142702159/3da431e5-be43-4ea2-896f-06366604501a">
 
 # 3,6. The solution provides a mathematical modelling for the Humidity and Temperature levels for each Local and Remote locations. (linear model and non-lineal model), The solution provides a prediction for the subsequent 12 hours for both temperature and humidity.
 
