@@ -765,7 +765,12 @@ def process_data():
     # Write the result back to a new file
     with open('formatted_data.csv', 'w') as output_file:
         output_file.write("\n".join(output))
+```
 
+I designed the function below, "make_list" to rearrange the data from the "formatted_data.csv" file into a list format. It begins by opening the CSV file, reading each line sequentially. Empty lists are initialized for date, temperature sensors (t1, t2, and t3), and humidity sensors (h1, h2, and h3). Subsequently, a for loop is employed to iterate through the values separated by commas in each line, and these values are successively appended to their respective lists. The result is a well-organized list structure that can facilitate further data processing and analysis.
+
+**code00** The codes show the function called make_list for making list.
+```.py
 def make_list():
     with (open("formatted_data.csv", "r") as file):
         lines = file.readlines()
@@ -802,7 +807,7 @@ def make_list():
 **fig3** This picture shows the result of the function, make_list.
 <img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
 
-コードの説明
+I created the function "send_data" with the purpose of transmitting data, encompassing a list of values, a date as a list, and a sensor ID, to a remote server at the address "http://192.168.6.153/reading/new". Within the function, a for loop iterates over the length of the value list. The "login" function is imported to retrieve authentication headers, and a new record is defined as a dictionary comprising datetime, sensor_id, and the current value. Utilizing the request post method, I send this new record as a JSON file along with the obtained headers. Additionally, I incorporated a print statement to display the sent data, ensuring transparency and verification of the data transmission process.
 **code3** The code above shows how to send data to the surver and receive what user sent to it.
 ```.py
 def send_data(value:list,date:list,sensor_id):
