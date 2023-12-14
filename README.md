@@ -85,18 +85,51 @@ This flow diagram shows the function called get_sensor.By using request library,
 |---------|---------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|---------------|------------------------|-----------|
 | 1       | Write the Problem context                        | a clear defenition of the problem | 10min         | Nov 22                 | A         |
 |2| 	Write the list of materials| Have a full list of materials | 5min | Nov 28 | B
-|3| 	Brainstorm and write ploblem definition| A clear design statement that suits the need of the client | 20min| Nov 29 |A|
-|4 | make a code for arduino with Arduino IDE | define each sensor and | 30 min | December 2 |  C | 
+|3| 	Brainstorm and write ploblem definition| A clear design statement that suits the need of the client | 20min | Nov 29 | A |
+|4 | make a code for arduino with Arduino IDE | define each sensor and | 30 min | December 2 | C | 
 |5| define read_arduino() | read data from arduino| 1 hour | Decemver 2 | C | 
 |6| define send_csv() | send data I got from read_arduino() to reading_csv| 3 hours | December 2 | C | 
 |7| define main()| set time to get temperature and humidity |  2 hours | December 2  | C | 
 |8| define login() | require username and password to see the data to keep it safely| 1 hour | December 3 | C | 
-|9| define send_data() | add data(datetime,sensor_id and value) to url | 3 hour | December 3 | C  | 
-|10| make the function to get the list from csv file | organize the data to draw graph | 2 hour | December 4 | C  | 
-|11| draw the flow diagram | make it claery how to organize the code | 1 hour | December 3 | C  | 
-|12| draw graphs of each sensor| See the change of value specificly | 3 hour | December 4 | C  | 
-|13| draw smooth graphs of each sensor | See the cange of the value simply | 2 hour | December 5 | C  | 
-ayane onegaishimasu
+|9| define send_data() | add data(datetime,sensor_id and value) to url | 3 hour | December 3 | C | 
+|10| make the function to get the list from csv file | organize the data to draw graph | 2 hour | December 4 | C | 
+|11| draw the flow diagram | make it claery how to organize the code | 1 hour | December 3 | C |
+|12| collect the data from sensors | get data to analyze  | 48 hour | December 4-6 | C  | 
+|13| draw graphs of each sensor| See the change of value specificly | 3 hour | December 7 | C | 
+|14| draw smooth graphs of each sensor | See the cange of the value simply | 2 hour | December 8 | C | 
+|15| draw graphs of each remote sensors | See the cange of the value specificly | 2 hour | December 8-9 | C | 
+|16| analyze the data from remote sensors | to draw the graph to easy to compare to other one | 3 hour | December 9 | C | 
+|17| draw graphs of mean, median range, maximum and minimum | clienct can compare to other data easisly | 2 hour | December 9 | C | 
+|18| draw graphs of standard deviation | See the data variationb easily  | 4 hour | December 10 | C | 
+|19| draw  prediction graphs | show the prediction for 12 hours | 3 hour | December 11 | C | 
+|20| make a poster | visualize the result and analysis of the project | 2 hour | December 11 | C  | 
+|21| draw graphs of standard deviation | See the data variationb easily  | 4 hour | December 11-12 | C  |
+|22| write the explanations of each code | client can see how we worked to follow the demand  | 8 hour | December 12-14 | C  | 
+|23| Ayane caught influenza | the efficiency reduced by half | 💀 | December 12 | 💀 | 
+|24| Yosuke caught influenza as well | the end of our project | 💀 | December 13 | 💀 | 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
