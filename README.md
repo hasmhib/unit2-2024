@@ -56,7 +56,7 @@ The use of data science in climate research has a impact on our understanding of
 ## Flow diagram
 
 
-<img width="436" alt="Screenshot 2023-12-12 at 17 52 19" src="https://github.com/hasmhib/unit2-2024/assets/142702159/40d01f12-8573-425e-9361-bd0272ee90e9">
+<img width="max" alt="Screenshot 2023-12-12 at 17 52 19" src="https://github.com/hasmhib/unit2-2024/assets/142702159/40d01f12-8573-425e-9361-bd0272ee90e9">
 
 **fig1** flow diagram of the function, create_new_sensor
 
@@ -65,7 +65,7 @@ This functioin makes it available to post the data with new id.
 
 
 
-<img width="508" alt="Screenshot 2023-12-12 at 17 40 26" src="https://github.com/hasmhib/unit2-2024/assets/142702159/efae5279-ec76-474c-9c53-215ba8ae7bc1">
+<img width="max" alt="Screenshot 2023-12-12 at 17 40 26" src="https://github.com/hasmhib/unit2-2024/assets/142702159/efae5279-ec76-474c-9c53-215ba8ae7bc1">
 
 
 **fig2** flow diagram of the function, get_sensor.
@@ -73,7 +73,7 @@ This functioin makes it available to post the data with new id.
 This flow diagram shows the function called get_sensor. By using request library, get data from API and arrange them as json file. Only pick the value with the specific sensor_id, and add to the list. The list is for drawing graph.
 
 
-<img width="372" alt="flow diagram" src="https://github.com/hasmhib/unit2-2024/assets/142702159/56abd646-f1b5-4b0b-978f-686a90a44165">
+<img width="max" alt="flow diagram" src="https://github.com/hasmhib/unit2-2024/assets/142702159/56abd646-f1b5-4b0b-978f-686a90a44165">
 
 **fig3** flow diagram of the function
 This flow diagram shows the function called get_sensor_datatime. This function is for getting time when the data from specific sensor_id is taken.
@@ -256,7 +256,9 @@ def main():
     print("Data collection complete.")
 ```
 
-ここにコードの説明
+In this code, I have a function called save_csv to save sensor data into a CSV file.
+The function takes two arguments: data, which is expected to be a tuple of three elements (d1, d2, d3), and file_name with a default value of "reading.csv".
+
 **code5** The code shows how I send the data to csv file. 
 
 ```.py
@@ -277,7 +279,7 @@ def save_csv(data, file_name="reading.csv"):
             f.write(f"{humidity3}, {temperature3}\n\n")
 ```
 
-**fig1** This picture shows how is data seved to reading.csv.
+**fig1** This picture shows how is data saved to reading.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
 
 ここにコードの説明
@@ -354,8 +356,6 @@ First, I needed to separate the columns of my CSV files and create columns. By r
 
 The CSV file contains data in a comma-separated format. Each line in the file represents a record with different data points. 
 
-**fig1** This picture shows how is the value reorganized in formatted_data.csv.
-<img width="max" alt="Screenshot 2023-12-09 at 13 30 50" src="https://github.com/hasmhib/unit2-2024/assets/142702159/bac41f82-0876-4884-a430-73d3e49d5900">
 This line consists of a date, a time, humidity of sensor1, temperature of sensor1, humidity of sensor2, temperature of sensor2, humidity of sensor3 and temperature of sensor3,  each separated by a comma.
 
 After loading the data, the DataFrame has default of column headers (0, 1, 2, ...). To make the data easier to work with, I assigned names to each column to makes other developers easy to understand when they see my code. 
@@ -768,6 +768,33 @@ for i, column in enumerate(['Room Temperature 1', 'Room Temperature 2', 'Room Te
 
 
 # 4. The solution provides a comparative analysis for the Humidity and Temperature levels for each Local and Remote locations including mean, standad deviation, minimum, maximum, and median.
+
+In this code, I am working with a dataset to analyze and visualize humidity data. 
+
+I calculate the mean of the humidity data. I do this for each row in my dataset by using data[humidity_types].mean(axis=1). This gives me the average humidity value for each moment or entry in my data.
+I also calculate the standard deviation with data[humidity_types].std(axis=1). This tells me how much the humidity varies at different times.
+I used the same ways to calculate maximum, minimum, and median as well. 
+By doing all this, I get a good understanding of the humidity data, such as how high or low it usually is, how much it changes, and what the most common readings are. This is important for analyzing and visualizing the data effectively.
+I implenetd the same methods in temperature as well, by using Matplotlib and GridSpec to create a comprehensive visualization of both humidity and tenperature data.
+
+
+**code00** Shows the part of the code to calculate the mean, standard deviation, maximum, minimum, and median of humidity over 48 hours. 
+
+```.py
+ax1 = fig.add_subplot(gs[0])
+mean_values = data[humidity_types].mean(axis=1)
+std_values = data[humidity_types].std(axis=1)
+max_values = data[humidity_types].max(axis=1)
+min_values = data[humidity_types].min(axis=1)
+median_values = data[humidity_types].median(axis=1)
+```
+
+**fig00** Shows the graph with the analysis of local humidity and temperature over 48 hours.
+<img width="max" alt="Screenshot 2023-12-14 at 1 11 36 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/c2900f52-1a8c-45b9-8c94-2b6e8a4b3429">
+
+**fig00** Shows the graph with the standard deviation of local humidity and temperature over 48 hours.
+<img width="max" alt="Screenshot 2023-12-14 at 1 12 03 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/ff90dd7c-c0fa-4ee4-9882-9b662abb509f">
+
 
 # 5. The Local samples are stored in a csv file and posted to the remote server as a backup.
 
