@@ -141,6 +141,7 @@ ayane onegaishimasu
 
 
 ## Development
+
 # Data storing
 ## login and create a new sensor
 
@@ -585,9 +586,9 @@ This applies to remote temperature as well. For remote temperature, it seems tha
 <img width="max" alt="Screenshot 2023-12-12 at 11 47 45 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/8b1fccef-3c46-4771-bd78-ea5e526f2f17">
 
 # 2. The client requested that the local variables will be measured using a set of 3 sensors around the dormitory.
+
 ## get data from arduino
 I defined a function named read_arduino to retrieve data from an Arduino device. This function utilizes the Serial library, providing the capability to distinguish and collect data from the Arduino. It requires parameters such as the port, which signifies the Arduino's name, baudrate, representing the communication speed, and timeout, specifying the duration for connection timeout. Three variables, namely d1, d2, and d3, are initialized as empty strings. However, as nothing is appended to them within the while loop, the loop persists indefinitely. Inside the loop, the readline method is invoked on the Arduino data. Notably, each sensor's data (d1, d2, and d3) should be received in succession, yet the current implementation reads the same data for each sensor in a loop. Furthermore, the code attempts to decode the binary data into a Unicode string using the UTF-8 encoding. UTF-8 is chosen for its ability to represent every character in the Unicode character set. It's worth noting that the code might have some logical issues, as the while loop conditions are not effectively checking the length of the data, and the variables d1, d2, and d3 are assigned the same decoded data.
-
 
 **code1** The code shows how to read data from arduino.
 ```.py
@@ -607,11 +608,101 @@ def read_arduino():
 ```
 
 **code2** The code shows how I set the interval to record the data every 5 min for 48 hours.
+
 ```.py
 
 
 ```
+
 # 3,6. The solution provides a mathematical modelling for the Humidity and Temperature levels for each Local and Remote locations. (linear model and non-lineal model), The solution provides a prediction for the subsequent 12 hours for both temperature and humidity.
+
+I fulfilled the success criteria of providing a mathematical modeling and 12-hour prediction for humidity and temperature at both local and remote locations by implementing linear and quadratic regression models.
+
+## Linear Regression Implementation
+
+**code00** Shows a part of a code to create a linear model of both humidity and temperature over 48 hours
+
+```.py
+def linear_regression(x, y):
+    n = len(x)
+    slope = (n * np.sum(x * y) - np.sum(x) * np.sum(y)) / (n * np.sum(x**2) - (np.sum(x))**2)
+    intercept = (np.sum(y) - slope * np.sum(x)) / n
+    return slope, intercept
+```
+I defined a linear_regression function to calculate the slope and intercept for a linear fit. This function takes x (timestamps) and y (sensor data) as inputs and computes the coefficients of the linear equation.
+Using this function, I applied linear regression to the sensor data.
+
+```.py
+for temp_type, color in zip(humidity_types, colors_humidity):
+    x = data['DatetimeNumeric'].values
+    y = data[temp_type].values
+
+    slope, intercept = linear_regression(x, y)
+
+    y_pred = slope * x + intercept
+
+    future_timestamps = np.arange(x[-1], x[-1] + 12 * 3600, 3600)
+    future_y_pred = slope * future_timestamps + intercept
+```
+Using the regression coefficients, I calculated the predicted values (y_pred) for the existing timestamps and extended this to predict future values for the next 12 hours.
+
+**fig00** Shows the linear Model Humidity Over Time with Future Prediction
+<img width="max" alt="Screenshot 2023-12-14 at 9 13 08 AM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/18cfb737-509a-4845-ae6f-c946a0c46690">
+
+**fig00** Shows the linear Model Temperature Over Time with Future Prediction
+<img width="max" alt="Screenshot 2023-12-14 at 9 13 36 AM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/55bf568e-c732-4e43-9cb6-77590c203cd0">
+
+**fig00** Shows the humidity and Linear Model Over Time with Future Prediction
+<img width="max" alt="Screenshot 2023-12-14 at 9 10 43 AM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/e4b65534-6e26-46b0-a0af-f0547a8c4a1a">
+
+**fig00** Shows the temperature and Linear Model Over Time with Future Prediction
+<img width="max" alt="Screenshot 2023-12-14 at 9 14 21 AM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/ac95ca5c-db63-4465-a0ce-33ca7b626dd2">
+
+
+## Quadratic Regression imprementation
+
+For a more detailed analysis, I employed quadratic regression using the fit_and_predict_quadratic function. 
+
+**code00** Shows the part of the code to plot a quadaratic model for both humidity and temperature over time
+
+```.py
+def fit_and_predict_quadratic(X, y):
+    coefs = Polynomial.fit(X, y, 2).convert().coef
+    predictions = coefs[0] + coefs[1] * X + coefs[2] * X ** 2
+    return predictions, coefs
+```
+
+I used Polynomial.fit(X, y, 2) from the numpy.polynomial.polynomial module to fit a quadratic polynomial to the data. The 2 indicates that I am fitting a polynomial of degree 2, which corresponds to a quadratic equation.
+I also used the coefficients I got from the polynomial fitting to figure out the predicted values. This means I followed a usual formula for a quadratic equation: coefs[0] + coefs[1] * X + coefs[2] * X squared. In this formula, coefs[0] is the starting point of the line, coefs[1] is the slope of the line, and coefs[2] shows how the line curves.
+
+**code00** Shows the part of the code to plot a quadaratic model for temperature over time (This applies to humidity as well)
+
+```.py
+for i, column in enumerate(['Room Temperature 1', 'Room Temperature 2', 'Room Temperature 3']):
+    X = data['Timestamp']
+    y = data[column]
+    predictions, coefs = fit_and_predict_quadratic(X, y)
+    plt.plot(data['Datetime'], y, label=f'Original {column}', color=colors[i])
+    plt.plot(data['Datetime'], predictions, label=f'Quadratic Fit for {column}', linestyle='--', color=colors[i])
+    future_predictions = coefs[0] + coefs[1] * future_timestamps + coefs[2] * future_timestamps ** 2
+    plt.plot(future_datetimes, future_predictions, label=f'12h Prediction for {column}', linestyle=':', color=colors[i])
+```
+
+I start a loop that goes through each temperature column one by one. The "enumerate" part helps me keep track of both the column's name (column) and its position (i).
+I use the fit_and_predict_quadratic function I defined previously, and defined the curve of the model.
+
+**fig00** Shows the Quadratic Model Humidity Over Time with Future Prediction
+<img width="max" alt="Screenshot 2023-12-14 at 9 41 15 AM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/343d2ff4-51c9-44a3-a3a9-981978a3e1de">
+
+**fig00** Shows the Quadratic Model Temperature Over Time with Future Prediction
+<img width="max" alt="Screenshot 2023-12-14 at 9 41 47 AM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/e1cdab7b-f99f-418c-a246-129abc3e6d75">
+
+**fig00** Shows the Humidity and Quadratic Model Over Time with Future Prediction
+<img width="max" alt="Screenshot 2023-12-14 at 9 42 09 AM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/04c324dc-381f-4485-a6c6-7c4765956bed">
+
+**fig00** Shows the Temperature and Quadratic Model Over Time with Future Prediction
+<img width="max" alt="Screenshot 2023-12-14 at 9 42 35 AM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/ece1b33a-210d-403b-a721-bde267a80795">
+
 
 # 4. The solution provides a comparative analysis for the Humidity and Temperature levels for each Local and Remote locations including mean, standad deviation, minimum, maximum, and median.
 
@@ -723,7 +814,6 @@ send_data(t3,date,70)
 
 **fig4** This picture shows the reslut of the send_data function and proof that I could send data to the server.
 <img width="max" alt="Screenshot 2023-12-09 at 11 58 04" src="https://github.com/hasmhib/unit2-2024/assets/142702159/aeb02410-2a0f-42d6-a239-7ce4014e3ff3">
-
 
 
 # 7. The solution includes a poster summarizing the visual representations, model and analysis created. The poster includes a recommendation about healthy levels for Temperature and Humidity.
