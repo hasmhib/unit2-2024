@@ -729,7 +729,7 @@ def save_csv(data, file_name="reading.csv"):
             humidity3, temperature3 = d3.split(',')
             f.write(f"Sensor 3: Humidity: {humidity3} Temperature: {temperature3}\n\n")
 ```
-```
+
 **fig1** This picture shows how is data seved to reading.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 27" src="https://github.com/hasmhib/unit2-2024/assets/142702159/a0079af5-aa2b-4e88-a1ac-3615b5881b37">
 
@@ -782,9 +782,9 @@ def make_list():
         print(t2)
         print(t3)
     return date,h1,t1,h2,t2,h3,t3
-
-
 ```
+
+
 **fig2** This picture shows how is the value reorganized in formatted_data.csv.
 <img width="max" alt="Screenshot 2023-12-09 at 13 18 32" src="https://github.com/hasmhib/unit2-2024/assets/142702159/11a08261-0173-41a4-8004-8821f78318b9">
 
