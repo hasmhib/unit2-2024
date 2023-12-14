@@ -1,4 +1,4 @@
-![11e470e9022f4fc5b367429bcbb285bc](https://github.com/comsci-uwc-isak/unit2_2023/assets/53995212/1d14b1d3-ae39-4ef3-8ec9-3329630eacae)
+<img width="max" alt="Screenshot 2023-12-14 at 2 59 21 PM" src="https://github.com/hasmhib/unit2-2024/assets/142870448/dfa23af2-fb53-4291-b06d-0bfbe748497d">
 
 # Unit 2: A Distributed Weather Station for ISAK
   
