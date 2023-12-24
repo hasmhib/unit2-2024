@@ -1,4 +1,4 @@
-```
+```.py
 import requests
 
 def get_readings(ip:str='192.168.6.153'):
