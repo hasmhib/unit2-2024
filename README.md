@@ -88,30 +88,30 @@ This flow diagram shows the function called get_sensor_datatime. This function i
 ## Record of Tasks
 | Task No | Planned Action                                                | Planned Outcome                                                                                                 | Time estimate | Target completion date | Criterion |
 |---------|---------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|---------------|------------------------|-----------|
-| 1 | Write Problem Context | Describe the problem, its importance, and how it affects the project. | 10 min | Nov 22 | A |
-| 2 | List Materials Needed | Make a list of all tools and software needed for the project. | 5 min | Nov 28 | B |
-| 3 | Define the Problem Clearly | Write a clear goal for the project that helps the client. | 20 min | Nov 29 | A |
-| 4 | Write Arduino Code | Create code for Arduino, explaining each part's function. | 30 min | December 2 | C |
-| 5 | Make read_arduino() Function | Make code to read data from Arduino. | 1 hour | December 2 | C |
-| 6 | Make send_csv() Function | Write code to turn Arduino data into a CSV file with specific details. | 3 hours | December 2 | C |
+| 1 | Write Problem Context | Describe the problem, its importance, and how we can solve this problem. | 10 min | Nov 22 | A |
+| 2 | List Materials Needed | Make a list of all tools needed for the project. | 5 min | Nov 28 | B |
+| 3 | Define the Problem Clearly | Write a proposed solution for the project that helps the client. | 20 min | Nov 29 | A |
+| 4 | Write main Code | Create a python project that executes functions that we will write | 30 min | December 2 | C |
+| 5 | Make read_arduino() Function | Create code for Arduino, which extracts the data from 3 sensors and explaining each part's function in the repository. | 1 hour | December 2 | C |
+| 6 | Make send_csv() Function | Write code to turn Arduino data into a CSV file with the given format. | 3 hours | December 2 | C |
 | 7 | Make main() Function | Set up a schedule in the code for data collection. | 2 hours | December 2 | C |
-| 8 | Make login() Function | Add a secure login for data safety. | 1 hour | December 3 | C |
-| 9 | Make send_data() Function | Write code to send sensor data to a website. | 3 hours | December 3 | C |
-| 10 | Get Data from CSV File | Create a way to read and organize data from CSV files. | 2 hours | December 4 | C |
+| 8 | Make login() Function | Add a secure login for data safety to access API. | 1 hour | December 3 | C |
+| 9 | Make send_data() Function | Write code to send sensor data to Weathier API to prevent data loss. | 3 hours | December 3 | C |
+| 10 | Get Data from CSV File | Create a way to read and organize data we took 48 hours from CSV files. | 2 hours | December 4 | C |
 | 11 | Draw a Flow Diagram | Make a diagram showing how the code works. | 1 hour | December 3 | C |
-| 12 | Collect Sensor Data | Run the system for 2 days to collect data. | 48 hours | December 4-6 | C |
-| 13 | Make Graphs for Each Sensor | Create graphs showing data from each sensor. | 3 hours | December 7 | C |
-| 14 | Make Smooth Graphs for Each Sensor | Make clearer graphs to show data trends. | 2 hours | December 8 | C |
-| 15 | Make Graphs for Remote Sensors | Make graphs for sensors that are far away. | 2 hours | December 8-9 | C |
-| 16 | Study Remote Sensor Data | Look at and compare data from far away sensors. | 3 hours | December 9 | C |
-| 17 | Make Graphs of Averages and Ranges | Create graphs showing averages, ranges, and extremes for each sensor. | 2 hours | December 9 | C |
-| 18 | Make Graphs of Standard Deviation | Show how much sensor data changes. | 4 hours | December 10 | C |
-| 19 | Make Prediction Graphs | Guess what the sensor data might be like in the next 12 hours. | 3 hours | December 11 | C |
-| 20 | Create a Project Poster | Make a poster about the project and its findings. | 2 hours | December 11 | C |
-| 21 | Redo Graphs of Standard Deviation | Make the standard deviation graphs again for accuracy. | 4 hours | December 11-12 | C |
-| 22 | Explain Each Part of the Code | Write simple explanations for each code section for the client. | 8 hours | December 12-14 | C |
-| 23 | Change Plan Because Ayane is Sick | Adjust schedule and tasks due to Ayane's illness. | - | December 12 | - |
-| 24 | Change Plan Again Because Yosuke is Sick | Update plan and deadlines again due to Yosuke's illness. | - | December 13 | - |
+| 12 | Collect Sensor Data | Take 48 hours data of 3 sensors, with both humidity and temperature and stored in both CSV file and remote API | 48 hours. | December 4-6 | C |
+| 13 | Make Graphs for Each Sensor | Create graphs showing data from each sensor both humidity and temperature. | 3 hours | December 7 | C |
+| 14 | Make Smooth Graphs for Each Sensor | Make clear graphs to show data by using smooth function I crearted before. | 2 hours | December 8 | C |
+| 15 | Make Graphs for Remote Sensors | Make graphs with a data I extracted from API with both humidity and temperature. | 2 hours | December 8-9 | C |
+| 16 | Study Remote Sensor Data | By using graphs I created, look at and compare local data and remote data. | 3 hours | December 9 | C |
+| 17 | Make Graphs of Averages and Ranges | Create graphs showing averages, ranges, maximum and minimum for each sensor. | 2 hours | December 9 | C |
+| 18 | Make Graphs of Standard Deviation | Show how much sensor data changes by using a mathmatical method called Standard deviation. | 4 hours | December 10 | C |
+| 19 | Make Prediction Graphs | Create a prediction that the data might be like in the next 12 hours by using equation. | 3 hours | December 11 | C |
+| 20 | Create a Project Poster | Make a poster about the project and write what we found during this project. | 2 hours | December 11 | C |
+| 21 | Redo Graphs of Standard Deviation | Make the standard deviation graphs since some of the data was wrong and I remake a graph. | 4 hours | December 11-12 | C |
+| 22 | Explain Each Part of the Code | Write simple explanations for each code section for the client and add to rthe repository. | 8 hours | December 12-14 | C |
+| 23 | Ayane caught flu | - | - | December 12 | - |
+| 24 | Yosuke caught flu | - | - | December 13 | - |
 
 
 
